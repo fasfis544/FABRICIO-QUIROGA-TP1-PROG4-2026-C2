@@ -1,0 +1,10 @@
+/* Anotacion de responsabilidad: Estilos SCSS de  Auth Form; define la presentacion visual, el responsive y los estados de la interfaz relacionados. */
+form { margin: 0; }
+.btn { width: 100%; margin-top: 8px; }
+.feedback { margin: 0 0 20px; padding: 14px; border: 1px solid var(--line); border-radius: var(--radius); color: var(--muted); }
+.error { color: var(--danger); border-color: var(--danger); background: var(--danger-soft); }
+.success { color: var(--forest); background: var(--forest-soft); border-color: var(--forest); }
+.links { margin: 24px 0 0; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.85rem; text-align: center; }
+.links a { color: var(--ink); font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
+.hint { color: var(--muted); font-size: 0.85rem; }
+.status { min-height: 24px; margin: 8px 0; color: var(--muted); font-size: 0.8rem; }

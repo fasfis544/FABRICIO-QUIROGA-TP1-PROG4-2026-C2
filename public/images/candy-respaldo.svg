@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect width="400" height="300" rx="16" fill="#141416"/>
+  <g stroke="#e4e4e7" fill="none" stroke-width="4"><path d="m155 105 15 92h60l15-92zM178 108l7 86m37-86-7 86"/><path d="M160 105c-10-20 6-34 22-26 2-24 35-24 39-3 17-12 34 5 21 29"/></g>
+  <text x="200" y="242" text-anchor="middle" font-family="sans-serif" font-size="18" fill="#f4f4f5">CANDY AURORA</text>
+  <text x="200" y="271" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#a1a1aa">Imagen no disponible</text>
+</svg>

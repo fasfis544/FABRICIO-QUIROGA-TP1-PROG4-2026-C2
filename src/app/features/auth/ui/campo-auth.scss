@@ -1,0 +1,9 @@
+/* Anotacion de responsabilidad: Estilos SCSS de Campo Auth; define la presentacion visual, el responsive y los estados de la interfaz relacionados. */
+:host { display: block; }
+label { display: block; margin-bottom: 8px; font-size: 0.85rem; font-weight: 600; }
+.input-wrapper { position: relative; }
+input { width: 100%; min-width: 0; font-size: 1rem; }
+.with-toggle { padding-right: 90px; }
+.toggle { position: absolute; top: 1px; right: 5px; min-height: 44px; padding: 0 10px; background: transparent; color: var(--ink); border: 0; border-radius: 6px; font-size: 0.78rem; }
+.toggle:hover:not(:disabled) { background: var(--surface-hover); }
+.field-error { min-height: 22px; margin: 6px 0 12px; color: var(--danger); font-size: 0.8rem; }

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tu invitación de cuenta · Cine Aurora</title>
+  </head>
+  <body
+    style="
+      margin: 0;
+      padding: 0;
+      background-color: #09090b;
+      color: #f4f4f5;
+      font-family: Arial, Helvetica, sans-serif;
+    "
+  >
+    <main>
+      <table
+        role="presentation"
+        width="100%"
+        cellpadding="0"
+        cellspacing="0"
+        style="background-color: #09090b"
+      >
+        <tr>
+          <td align="center" style="padding: 32px 16px">
+            <table
+              role="presentation"
+              width="100%"
+              cellpadding="0"
+              cellspacing="0"
+              style="
+                max-width: 560px;
+                background-color: #141416;
+                border: 1px solid #73737d;
+                border-radius: 16px;
+              "
+            >
+              <tr>
+                <td style="padding: 32px">
+                  <p style="margin: 0 0 24px; font-size: 14px; letter-spacing: 2px; color: #e4e4e7">
+                    CINE AURORA
+                  </p>
+                  <h1 style="margin: 0 0 20px; font-size: 28px; line-height: 1.3; color: #f4f4f5">
+                    Tenés una invitación.
+                  </h1>
+                  <p style="font-size: 16px; line-height: 1.6; color: #f4f4f5">
+                    Te invitaron a crear una cuenta en Cine Aurora. Esta invitación es para acceder
+                    al sistema; no es una entrada de cine.
+                  </p>
+                  <p style="margin: 28px 0">
+                    <a
+                      href="{{ .ConfirmationURL }}"
+                      style="
+                        display: inline-block;
+                        padding: 16px 24px;
+                        background-color: #e4e4e7;
+                        color: #111113;
+                        border: 1px solid #e4e4e7;
+                        border-radius: 8px;
+                        text-decoration: none;
+                        font-size: 16px;
+                        font-weight: bold;
+                      "
+                      >Aceptar invitación de cuenta</a
+                    >
+                  </p>
+                  <p style="font-size: 14px; line-height: 1.6; color: #a1a1aa">
+                    Si el botón no funciona, copiá este enlace en tu navegador:
+                  </p>
+                  <p
+                    style="
+                      word-break: break-all;
+                      overflow-wrap: anywhere;
+                      font-size: 14px;
+                      line-height: 1.6;
+                    "
+                  >
+                    <a
+                      href="{{ .ConfirmationURL }}"
+                      style="color: #e4e4e7"
+                      >{{ .ConfirmationURL }}</a
+                    >
+                  </p>
+                  <p style="font-size: 14px; line-height: 1.6; color: #a1a1aa">
+                    Si no esperabas la invitación, ignorá este mensaje. El enlace tiene una vigencia
+                    limitada. No lo compartas.
+                  </p>
+                  <p style="margin: 28px 0 0; font-size: 13px; line-height: 1.6; color: #a1a1aa">
+                    Cine Aurora · Este correo es de autenticación. No solicita un pago.
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,260 @@
+<!-- Anotacion de responsabilidad: Plantilla HTML de Ofertas; define la estructura y los estados visuales de esta pantalla o componente Angular. -->
+<section class="page">
+  <h1>{{ encabezado() }}</h1>
+  <p class="module-intro">{{ descripcion() }}</p>
+  <nav aria-label="Candy y promociones">
+    <a routerLink="/admin/candy/productos">Productos</a
+    ><a routerLink="/admin/candy/combos">Combos</a><a routerLink="/admin/cupones">Cupones</a
+    ><a routerLink="/admin/recompensas">Recompensas</a>
+  </nav>
+  @if (cargando()) {
+    <p role="status">Cargando configuración…</p>
+  }
+  @if (error()) {
+    <p role="alert" class="error">{{ error() }}</p>
+  }
+  @if (exito()) {
+    <p role="status">{{ exito() }}</p>
+  }
+  @if (tipo() === 'cupon') {
+    <section class="card">
+      <h2>Primera visita</h2>
+      <p>Porcentaje de bienvenida para nuevos clientes.</p>
+      <label for="bienvenida-porcentaje">Descuento de bienvenida para la primera compra (%)</label
+      ><input
+        id="bienvenida-porcentaje"
+        type="number"
+        min="1"
+        max="100"
+        [value]="bienvenida()"
+        #bienvenidaValor
+      />
+      <button class="btn" [disabled]="ocupado()" (click)="guardarBienvenida(bienvenidaValor.value)">
+        Actualizar bienvenida
+      </button>
+    </section>
+  }
+  @if (!tipoFijo) {
+    <label for="oferta-tipo">Tipo de configuración</label
+    ><select id="oferta-tipo" [value]="tipo()" [disabled]="ocupado()" (change)="cambiar($event)">
+      <option value="producto">Productos</option>
+      <option value="combo">Combos</option>
+      <option value="cupon">Cupones</option>
+      <option value="recompensa">Recompensas</option>
+    </select>
+  }
+  <div class="module-toolbar">
+    <button class="btn" [disabled]="ocupado()" (click)="nueva()">Nueva configuración</button
+    ><button class="btn btn--ghost" [disabled]="ocupado() || cargando()" (click)="cargar()">
+      Actualizar listado
+    </button>
+  </div>
+  <app-filtro-catalogo
+    #filtroCatalogo
+    prefijo="ofertas"
+    [total]="ofertas()[tipo()].length"
+    [visibles]="visibles().length"
+    [(busqueda)]="busqueda"
+    [(estado)]="estadoFiltro"
+  />
+  <div class="grid">
+    @for (o of visibles(); track o.id) {
+      <article class="card">
+        <h2>{{ o.nombre }}</h2>
+        @if (tipo() === 'producto' || tipo() === 'combo') {
+          <app-imagen-cine
+            [src]="imagenes.url(o.datos['imagen_path'])"
+            [nombre]="o.nombre"
+            tipo="candy"
+          />
+        }
+        <p>
+          {{ activa(o) ? 'Activo' : 'Eliminado (recuperable)' }}
+        </p>
+        <button class="btn" [disabled]="ocupado()" (click)="editar(o)">
+          Editar {{ o.nombre }}
+        </button>
+        <app-accion-catalogo
+          [nombre]="o.nombre"
+          [activo]="activa(o)"
+          [ocupado]="ocupado() || cargando()"
+          (cambiar)="cambiarEstado(o, $event)"
+        />
+      </article>
+    } @empty {
+      <p>No hay configuraciones para estos filtros.</p>
+    }
+  </div>
+  <h2 #editorTitulo tabindex="-1">{{ datos().id ? 'Editar' : 'Crear' }}</h2>
+  <form (submit)="guardar($event)">
+    @if (tipo() === 'cupon') {
+      <label for="oferta-codigo">Código</label
+      ><input id="oferta-codigo" [formField]="formulario.codigo" />
+    } @else {
+      <label for="oferta-nombre">Nombre</label
+      ><input id="oferta-nombre" [formField]="formulario.nombre" />
+    }
+    @if (tipo() === 'producto' || tipo() === 'combo') {
+      <label for="oferta-precio">Precio ARS (mayor a cero)</label
+      ><input
+        id="oferta-precio"
+        type="number"
+        step="0.01"
+        [formField]="formulario.precio"
+        [attr.aria-invalid]="erroresCampos()['precio'] ? true : null"
+        aria-describedby="oferta-precio-error"
+      />
+      <p id="oferta-precio-error" class="error" aria-live="polite">
+        {{ erroresCampos()['precio'] }}
+      </p>
+    }
+    @if (tipo() === 'producto') {
+      <label for="producto-imagen">Imagen del producto (opcional)</label>
+      <input
+        id="producto-imagen"
+        type="file"
+        accept="image/jpeg,image/png,image/webp"
+        [disabled]="ocupado() || cargando()"
+        aria-describedby="producto-imagen-ayuda"
+        (change)="subirImagen($event)"
+      />
+      <p id="producto-imagen-ayuda">
+        JPG, PNG o WebP de hasta 5 MB. Subir no guarda el producto: confirmá con Guardar
+        configuración. Reemplazar o quitar no borra imágenes anteriores.
+      </p>
+      @if (imagenActual(); as url) {
+        <app-imagen-cine [src]="url" nombre="vista previa del producto" tipo="candy" />
+        <button
+          class="btn btn--ghost"
+          type="button"
+          [disabled]="ocupado()"
+          (click)="quitarImagen()"
+        >
+          Quitar imagen del producto
+        </button>
+      }
+      <label for="oferta-categoria">Categoría</label
+      ><input id="oferta-categoria" [formField]="formulario.categoria" />
+      <label for="oferta-stock">Stock físico (incluye stock retenido)</label
+      ><input
+        id="oferta-stock"
+        type="number"
+        step="1"
+        [formField]="formulario.stock"
+        [attr.aria-invalid]="erroresCampos()['stock'] ? true : null"
+        aria-describedby="oferta-stock-error"
+      />
+      <p id="oferta-stock-error" class="error" aria-live="polite">{{ erroresCampos()['stock'] }}</p>
+    }
+    @if (tipo() === 'combo') {
+      <label
+        ><input type="checkbox" [formField]="formulario.incluye_entrada" /> Incluye una entrada
+        normal por unidad de combo (VIP mantiene su recargo)</label
+      >
+      <h3>Componentes por combo</h3>
+      @for (p of ofertas().producto; track p.id) {
+        <label [for]="'componente-' + p.id">Unidades de {{ p.nombre }}</label
+        ><input
+          [id]="'componente-' + p.id"
+          type="number"
+          min="0"
+          max="20"
+          step="1"
+          [value]="componentes()[p.id] ?? 0"
+          [disabled]="ocupado()"
+          [attr.aria-invalid]="erroresComponentes()[p.id] ? 'true' : null"
+          [attr.aria-describedby]="erroresComponentes()[p.id] ? 'componente-error-' + p.id : null"
+          (input)="componente(p.id, $event)"
+        />
+        @if (erroresComponentes()[p.id]; as detalle) {
+          <p [id]="'componente-error-' + p.id" class="error" role="alert">{{ detalle }}</p>
+        }
+      }
+    }
+    @if (tipo() === 'cupon' || tipo() === 'recompensa') {
+      @if (tipo() === 'cupon') {
+        <label for="descuento-tipo">Tipo de descuento</label
+        ><select id="descuento-tipo" [formField]="formulario.descuento_tipo">
+          <option value="porcentaje">Porcentaje</option>
+          <option value="monto">Monto fijo</option>
+        </select>
+        @if (datos().descuento_tipo === 'porcentaje') {
+          <label for="oferta-porcentaje">Descuento porcentual (1–100)</label
+          ><input
+            id="oferta-porcentaje"
+            type="number"
+            step="1"
+            [formField]="formulario.porcentaje"
+          />
+        } @else {
+          <label for="oferta-monto">Descuento ARS</label
+          ><input id="oferta-monto" type="number" step="0.01" [formField]="formulario.monto" />
+        }
+      }
+      <label for="oferta-desde">Desde (Argentina)</label
+      ><input id="oferta-desde" type="datetime-local" [formField]="formulario.desde" /><label
+        for="oferta-hasta"
+        >Hasta (Argentina)</label
+      ><input
+        id="oferta-hasta"
+        type="datetime-local"
+        [formField]="formulario.hasta"
+        [attr.aria-invalid]="erroresCampos()['fechas'] ? true : null"
+        aria-describedby="oferta-fechas-error"
+      />
+      <p id="oferta-fechas-error" class="error" aria-live="polite">
+        {{ erroresCampos()['fechas'] }}
+      </p>
+    }
+    @if (tipo() === 'cupon') {
+      <label><input type="checkbox" [formField]="formulario.ilimitado" /> Sin límite de usos</label>
+      <label for="oferta-edad">Edad mínima del segmento (0 = sin segmentación)</label
+      ><input id="oferta-edad" type="number" step="1" [formField]="formulario.edad_minima" />
+      <label for="oferta-minimo">Compra mínima ARS</label
+      ><input id="oferta-minimo" type="number" step="0.01" [formField]="formulario.minimo" /><label
+        for="oferta-limite"
+        >Límite global de usos</label
+      ><input id="oferta-limite" type="number" step="1" [formField]="formulario.limite" /><label
+        for="oferta-pelicula"
+        >Alcance</label
+      ><select id="oferta-pelicula" [formField]="formulario.pelicula_id">
+        <option value="">Todas las películas</option>
+        @for (p of peliculas(); track p.id) {
+          <option [value]="p.id">{{ p.titulo }}</option>
+        }</select
+      ><label
+        ><input type="checkbox" [formField]="formulario.registrados" /> Solo usuarios
+        registrados</label
+      >
+    }
+    @if (tipo() === 'recompensa') {
+      <label for="recompensa-tipo">Recompensa</label
+      ><select id="recompensa-tipo" [formField]="formulario.recompensa_tipo">
+        <option value="entrada">Una entrada gratuita</option>
+        <option value="producto">Una unidad de un producto</option>
+      </select>
+      @if (datos().recompensa_tipo === 'producto') {
+        <label for="recompensa-producto">Producto a canjear</label
+        ><select id="recompensa-producto" [formField]="formulario.producto_id">
+          <option value="">Seleccioná producto</option>
+          @for (p of ofertas().producto; track p.id) {
+            <option [value]="p.id">{{ p.nombre }}</option>
+          }
+        </select>
+      }
+      <label for="oferta-puntos">Costo en puntos</label>
+      <p class="hint">
+        Se acumula 1 punto por peso pagado. Configurá el costo según el valor del premio y la
+        frecuencia de canje deseada; no equivale automáticamente al precio de una entrada.
+      </p>
+      <input id="oferta-puntos" type="number" step="1" [formField]="formulario.puntos" />
+    }
+    @for (campo of ['nombre', 'descuento', 'segmento', 'recompensa', 'componentes']; track campo) {
+      @if (erroresCampos()[campo]) {
+        <p class="error" role="alert">{{ erroresCampos()[campo] }}</p>
+      }
+    }
+    <label><input type="checkbox" [formField]="formulario.activo" /> Activo</label
+    ><button class="btn" [disabled]="ocupado() || cargando()">Guardar configuración</button>
+  </form>
+</section>

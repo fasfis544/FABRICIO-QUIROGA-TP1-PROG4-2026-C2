@@ -1,0 +1,201 @@
+<!-- Anotacion de responsabilidad: Plantilla HTML de Mi Perfil; define la estructura y los estados visuales de esta pantalla o componente Angular. -->
+<section class="page account-page">
+  <header class="account-heading">
+    <div>
+      <p class="eyebrow">TU ESPACIO PERSONAL</p>
+      <h1>Mi cuenta Aurora</h1>
+      <p class="intro">
+        Tus datos, siempre actualizados. Estos cambios se aplican únicamente a tu cuenta.
+      </p>
+    </div>
+    <span class="role-badge">{{ rolVisible() }}</span>
+  </header>
+  @if (cargando()) {
+    <p role="status" class="feedback">Cargando perfil…</p>
+  }
+  @if (error()) {
+    <p role="alert" class="error feedback">{{ error() }}</p>
+  }
+  @if (exito()) {
+    <p role="status" class="success feedback">{{ exito() }}</p>
+  }
+  <div class="account-layout">
+    <div class="personal-data">
+      <form [formGroup]="formulario" (ngSubmit)="guardar()" novalidate>
+        <section class="account-card" aria-labelledby="datos-title">
+          <h2 id="datos-title">Datos personales</h2>
+          <p class="hint">
+            Podés modificarlos después del registro. También completalos si ingresaste con Google o
+            GitHub.
+          </p>
+          <div class="fields-grid">
+            <div>
+              <label for="perfil-nombre">Nombre</label
+              ><input
+                id="perfil-nombre"
+                formControlName="nombre"
+                autocomplete="given-name"
+                maxlength="100"
+                required
+                [attr.aria-invalid]="!!errorCampo('nombre')"
+                aria-describedby="error-nombre"
+              />
+              <p id="error-nombre" class="field-error">{{ errorCampo('nombre') }}</p>
+            </div>
+            <div>
+              <label for="perfil-apellido">Apellido</label
+              ><input
+                id="perfil-apellido"
+                formControlName="apellido"
+                autocomplete="family-name"
+                maxlength="100"
+                required
+                [attr.aria-invalid]="!!errorCampo('apellido')"
+                aria-describedby="error-apellido"
+              />
+              <p id="error-apellido" class="field-error">{{ errorCampo('apellido') }}</p>
+            </div>
+            <div>
+              <label for="perfil-nacimiento">Fecha de nacimiento</label
+              ><input
+                id="perfil-nacimiento"
+                type="date"
+                min="1900-01-01"
+                [max]="hoy()"
+                formControlName="fecha_nacimiento"
+                autocomplete="bday"
+                required
+                [attr.aria-invalid]="!!errorCampo('fecha_nacimiento')"
+                aria-describedby="error-nacimiento edad-perfil"
+              />
+              <p id="error-nacimiento" class="field-error">{{ errorCampo('fecha_nacimiento') }}</p>
+              <p id="edad-perfil" class="hint">
+                Edad del perfil guardado: {{ sesion.perfil()?.fecha_nacimiento | edad: hoy() }} años.
+              </p>
+            </div>
+            <div>
+              <label for="perfil-grupo">Grupo sanguíneo</label
+              ><select
+                id="perfil-grupo"
+                formControlName="grupo_sanguineo"
+                required
+                [attr.aria-invalid]="!!errorCampo('grupo_sanguineo')"
+                aria-describedby="error-grupo"
+              >
+                <option value="">Elegí tu grupo</option>
+                @for (g of grupos; track g) {
+                  <option [value]="g">{{ g }}</option>
+                }
+              </select>
+              <p id="error-grupo" class="field-error">{{ errorCampo('grupo_sanguineo') }}</p>
+            </div>
+            <div>
+              <label for="perfil-ojos">Color de ojos</label
+              ><input
+                id="perfil-ojos"
+                formControlName="color_ojos"
+                maxlength="40"
+                required
+                [attr.aria-invalid]="!!errorCampo('color_ojos')"
+                aria-describedby="error-ojos"
+              />
+              <p id="error-ojos" class="field-error">{{ errorCampo('color_ojos') }}</p>
+            </div>
+            <div>
+              <label for="perfil-vacaciones">Días de vacaciones anuales</label
+              ><input
+                id="perfil-vacaciones"
+                type="number"
+                min="0"
+                max="365"
+                step="1"
+                formControlName="vacaciones_anuales"
+                required
+                [attr.aria-invalid]="!!errorCampo('vacaciones_anuales')"
+                aria-describedby="error-vacaciones"
+              />
+              <p id="error-vacaciones" class="field-error">
+                {{ errorCampo('vacaciones_anuales') }}
+              </p>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button
+              class="btn"
+              type="submit"
+              [disabled]="cargando() || guardando() || !disponible()"
+            >
+              {{ guardando() ? 'Guardando…' : 'Guardar mis datos' }}</button
+            ><button
+              class="btn btn--ghost"
+              type="button"
+              [disabled]="guardando() || cargando()"
+              (click)="cargar()"
+            >
+              Recargar datos guardados
+            </button>
+          </div>
+        </section>
+      </form>
+      <section class="account-card" aria-labelledby="seguridad-title">
+        <h2 id="seguridad-title">Acceso y seguridad</h2>
+        <p class="hint">El correo identifica tu acceso y no se cambia con los datos personales.</p>
+        <label for="perfil-email">Correo de acceso</label
+        ><input
+          id="perfil-email"
+          type="email"
+          [value]="sesion.usuario()?.email ?? ''"
+          readonly
+          autocomplete="email"
+        /><a class="security-link" routerLink="/auth/recuperar-password"
+          >Cambiar contraseña mediante un enlace seguro <span aria-hidden="true">↗</span></a
+        >
+      </section>
+    </div>
+    <aside class="account-aside" aria-label="Permisos y actividad">
+      <section class="account-card permissions">
+        <p class="eyebrow">PERMISOS DE TU CUENTA</p>
+        <h2>{{ rolVisible() }}</h2>
+        <p>Todos los roles pueden editar sus propios datos personales.</p>
+        <p>
+          No podés cambiar tu rol, estado, puntos, crédito ni datos de otra persona desde esta
+          pantalla.
+        </p>
+        @switch (sesion.rol()) {
+          @case ('administrador') {
+            <p>
+              Los accesos de otras cuentas se gestionan, con sus restricciones y auditoría, desde el
+              panel administrativo.
+            </p>
+            <a class="btn btn--ghost" routerLink="/admin">Ir a administración</a>
+          }
+          @case ('empleado') {
+            <p>
+              Tu acceso de trabajo permite validar entradas y candy, no administrar usuarios o
+              catálogos.
+            </p>
+            <a class="btn btn--ghost" routerLink="/empleados/entrada">Ir a boletería</a>
+          }
+          @case ('cliente') {
+            <p>Las compras, beneficios y valoraciones siempre corresponden a tu propia cuenta.</p>
+            <a class="btn btn--ghost" routerLink="/peliculas">Elegir una película</a>
+          }
+        }
+      </section>
+      <section class="account-card">
+        <h2>Mi actividad como espectador</h2>
+        <nav class="activity-links" aria-label="Actividad de mi cuenta">
+          <a routerLink="/perfil/compras">Reservas y compras <span aria-hidden="true">↗</span></a
+          ><a routerLink="/perfil/peliculas">Películas vistas <span aria-hidden="true">↗</span></a
+          ><a routerLink="/perfil/puntos">Puntos <span aria-hidden="true">↗</span></a
+          ><a routerLink="/perfil/credito">Crédito <span aria-hidden="true">↗</span></a
+          ><a routerLink="/perfil/recompensas">Recompensas <span aria-hidden="true">↗</span></a
+          ><a routerLink="/perfil/canjes">Canjes <span aria-hidden="true">↗</span></a
+          ><a routerLink="/perfil/notificaciones"
+            >Notificaciones <span aria-hidden="true">↗</span></a
+          >
+        </nav>
+      </section>
+    </aside>
+  </div>
+</section>

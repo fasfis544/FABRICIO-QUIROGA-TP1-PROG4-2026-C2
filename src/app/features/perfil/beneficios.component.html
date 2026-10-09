@@ -1,0 +1,184 @@
+<!-- Anotacion de responsabilidad: Plantilla HTML de Beneficios; define la estructura y los estados visuales de esta pantalla o componente Angular. -->
+<section class="page">
+  <a routerLink="/perfil">Mi cuenta</a>
+  <h1>{{ titulo[tipo] }}</h1>
+  <nav>
+    <a class="btn" routerLink="/perfil/puntos">Puntos</a
+    ><a class="btn" routerLink="/perfil/credito">Crédito</a
+    ><a class="btn" routerLink="/perfil/recompensas">Recompensas</a
+    ><a class="btn" routerLink="/perfil/canjes">Canjes</a
+    ><a class="btn" routerLink="/perfil/notificaciones">Notificaciones</a>
+  </nav>
+  @if (cargando()) {
+    <p role="status">Consultando tu cuenta…</p>
+  }
+  @if (error()) {
+    <p role="alert" class="error">{{ error() }}</p>
+  }
+  @if (exito()) {
+    <p role="status">{{ exito() }}</p>
+  }
+  <button class="btn" [disabled]="cargando() || ocupado()" (click)="cargar()">Actualizar</button>
+  @if (tipo === 'notificaciones') {
+    <app-preferencias-push />
+  }
+  @if (datos(); as d) {
+    @switch (tipo) {
+      @case ('puntos') {
+        <h2>Saldo: {{ d.puntos }} puntos</h2>
+        <p>Disponibles para canjear: {{ d.puntos_disponibles }}</p>
+        <p>
+          Los puntos de compras que todavía se pueden cancelar quedan protegidos hasta dos horas
+          antes de la función. En las nuevas compras se acredita 1 punto por cada peso de pago
+          simulado, sin contar crédito ni descuentos, redondeado hacia abajo. Por ejemplo, $26.000
+          generan 26.000 puntos. Las compras sin importe a pagar no generan puntos; los puntos
+          históricos se conservan.
+        </p>
+      }
+      @case ('credito') {
+        <h2>Saldo: {{ d.credito | currency: 'ARS' }}</h2>
+        <p>Disponible: {{ d.credito_disponible | currency: 'ARS' }}</p>
+        <p>
+          Las reservas pendientes retienen el crédito elegido hasta pagar o vencer. Las
+          cancelaciones de compras pagadas generan crédito, no devoluciones monetarias.
+        </p>
+      }
+      @case ('recompensas') {
+        <p>Puntos disponibles: {{ d.puntos_disponibles }}</p>
+        <div class="grid">
+          @for (r of d.recompensas; track r.id) {
+            <article class="card">
+              <h2>{{ r.nombre }}</h2>
+              <p>
+                {{ r.puntos }} puntos ·
+                {{
+                  r.tipo === 'entrada' ? 'Una entrada gratuita' : 'Una unidad de producto gratis'
+                }}
+              </p>
+              <p>Válido hasta {{ r.hasta | date: 'dd/MM/yyyy HH:mm' : '-0300' }} (Argentina)</p>
+              <button
+                class="btn"
+                [disabled]="ocupado() || cargando() || d.puntos_disponibles < r.puntos"
+                (click)="canjear(r.id)"
+              >
+                Canjear {{ r.nombre }}
+              </button>
+            </article>
+          } @empty {
+            <p>No hay recompensas vigentes.</p>
+          }
+        </div>
+      }
+      @case ('canjes') {
+        <h2>Cupones personales disponibles</h2>
+        @for (c of d.cupones; track c.codigo) {
+          <article class="card">
+            <code>{{ c.codigo }}</code>
+            <p>
+              {{
+                c.tipo === 'porcentaje'
+                  ? c.porcentaje + '% de descuento'
+                  : c.tipo === 'entrada'
+                    ? 'Una entrada gratis'
+                    : 'Una unidad de producto gratis'
+              }}
+              · Vence {{ c.hasta | date: 'dd/MM/yyyy' : '-0300' }} (Argentina)
+            </p>
+          </article>
+        }
+        <div class="grid">
+          @for (c of d.canjes; track c.id) {
+            <article class="card">
+              <h2>{{ c.nombre }}</h2>
+              <p>
+                {{ c.puntos }} puntos ·
+                {{ c.creada | date: 'dd/MM/yyyy HH:mm' : '-0300' }} (Argentina)
+              </p>
+              <p>
+                Cupón personal de un uso: <code>{{ c.codigo }}</code>
+              </p>
+              <p>
+                Vence {{ c.hasta | date: 'dd/MM/yyyy HH:mm' : '-0300' }} (Argentina) ·
+                {{ c.usado ? 'Usado' : 'Sin usar (se valida en checkout)' }}
+              </p>
+            </article>
+          } @empty {
+            <p>Todavía no realizaste canjes.</p>
+          }
+        </div>
+      }
+      @case ('notificaciones') {
+        <h2>Alertas de disponibilidad</h2>
+        <p>
+          Suscribite desde el detalle de una película. Las alertas llegan a esta bandeja cuando se
+          habilita la venta de entradas. Si activaste Push, también pueden llegar a tus
+          dispositivos. No se envía email de entradas.
+        </p>
+        @for (a of d.alertas; track a.pelicula_id) {
+          <article class="card">
+            <a [routerLink]="['/peliculas', a.pelicula_id]">{{ a.titulo }}</a
+            ><button
+              class="btn"
+              [disabled]="ocupado() || cargando()"
+              (click)="desuscribir(a.pelicula_id)"
+            >
+              Cancelar alerta de {{ a.titulo }}
+            </button>
+          </article>
+        } @empty {
+          <p>No tenés suscripciones.</p>
+        }
+        <h2 #bandejaTitulo tabindex="-1">Bandeja de notificaciones</h2>
+        <div class="actions" role="group" aria-label="Filtrar notificaciones">
+          <button
+            class="btn"
+            type="button"
+            [attr.aria-pressed]="bandeja() === 'nuevas'"
+            (click)="bandeja.set('nuevas')"
+          >
+            Nuevas ({{ nuevas().length }})
+          </button>
+          <button
+            class="btn btn--ghost"
+            type="button"
+            [attr.aria-pressed]="bandeja() === 'leidas'"
+            (click)="bandeja.set('leidas')"
+          >
+            Leídas ({{ leidas().length }})
+          </button>
+        </div>
+        <p class="hint">Horarios de Argentina. Marcar como leída no elimina la notificación.</p>
+        @for (n of notificaciones(); track n.id) {
+          <article class="card notification-card" [class.notification-new]="!n.leida">
+            <p>{{ n.mensaje }}</p>
+            <p>
+              {{ n.creada | date: 'dd/MM/yyyy HH:mm' : '-0300' }} (Argentina) ·
+              {{ n.leida ? 'Leída' : 'Nueva' }}
+            </p>
+            @if (n.destino) {
+              <a class="text-link" [routerLink]="n.destino">{{ n.enlace }}</a>
+            }
+            @if (!n.leida) {
+              <button class="btn" [disabled]="ocupado() || cargando()" (click)="leida(n.id)">
+                Marcar como leída
+              </button>
+            }
+          </article>
+        } @empty {
+          <p>No hay notificaciones {{ bandeja() === 'nuevas' ? 'nuevas' : 'leídas' }}.</p>
+        }
+      }
+    }
+    @if (tipo === 'puntos' || tipo === 'credito') {
+      <h2>Movimientos</h2>
+      @for (m of movimientos(); track m.id) {
+        <article class="card">
+          <p>{{ m.motivo }} · {{ m.creada | date: 'dd/MM/yyyy HH:mm' : '-0300' }} (Argentina)</p>
+          <p>{{ tipo === 'credito' ? (m.importe | currency: 'ARS') : m.importe }}</p>
+        </article>
+      } @empty {
+        <p>No hay movimientos.</p>
+      }
+    }
+  }
+</section>

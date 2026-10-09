@@ -1,0 +1,97 @@
+<!-- Anotacion de responsabilidad: Plantilla HTML de Login; define la estructura y los estados visuales de esta pantalla o componente Angular. -->
+<section class="login-page" aria-labelledby="login-title">
+  <div class="login-intro">
+    <span class="eyebrow">TU PRÓXIMA HISTORIA EMPIEZA ACÁ</span>
+    <h1 id="login-title">Volvé a vivir<br /><span>el cine a tu manera.</span></h1>
+    <p>
+      Ingresá a tu cuenta para consultar tus compras, sumar puntos y disfrutar de todos los
+      beneficios de Aurora.
+    </p>
+    <ul class="benefits" aria-label="Beneficios de tu cuenta">
+      <li><span aria-hidden="true">01</span> Tus entradas, siempre a mano.</li>
+      <li><span aria-hidden="true">02</span> Recompensas para tu próxima visita.</li>
+      <li><span aria-hidden="true">03</span> Todas tus historias en un solo lugar.</li>
+    </ul>
+    <a class="text-link" routerLink="/">Volver a la cartelera <span aria-hidden="true">↗</span></a>
+  </div>
+
+  <div class="login-card">
+    <span class="login-mark" aria-hidden="true">✦</span>
+    <h2>Bienvenido de nuevo</h2>
+    <p class="card-description">Ingresá con tu correo y contraseña.</p>
+    <form (submit)="ingresar($event)" novalidate [attr.aria-busy]="enviando()">
+      <div class="field">
+        <label for="login-email">Correo electrónico</label>
+        <input
+          id="login-email"
+          type="email"
+          autocomplete="username"
+          inputmode="email"
+          [formField]="formulario.email"
+          placeholder="nombre@ejemplo.com"
+          [attr.aria-invalid]="formulario.email().touched() && formulario.email().invalid()"
+          aria-describedby="email-error"
+          (input)="error.set(null)"
+        />
+        <div id="email-error" class="field-error" aria-live="polite">
+          @if (formulario.email().touched() && formulario.email().invalid()) {
+            {{ formulario.email().errors()[0].message }}
+          }
+        </div>
+      </div>
+      <div class="field">
+        <label for="login-password">Contraseña</label>
+        <div class="password-input">
+          <input
+            id="login-password"
+            [type]="mostrarPassword() ? 'text' : 'password'"
+            autocomplete="current-password"
+            [formField]="formulario.password"
+            placeholder="Tu contraseña"
+            aria-describedby="password-error"
+            [attr.aria-invalid]="formulario.password().touched() && formulario.password().invalid()"
+            (input)="error.set(null)"
+          />
+          <button
+            class="password-toggle"
+            type="button"
+            [disabled]="enviando()"
+            [attr.aria-pressed]="mostrarPassword()"
+            aria-controls="login-password"
+            aria-label="Mostrar contraseña"
+            (click)="mostrarPassword.set(!mostrarPassword())"
+          >
+            {{ mostrarPassword() ? 'Ocultar' : 'Mostrar' }}
+            <span class="sr-only">contraseña</span>
+          </button>
+        </div>
+        <div id="password-error" class="field-error" aria-live="polite">
+          @if (formulario.password().touched() && formulario.password().invalid()) {
+            {{ formulario.password().errors()[0].message }}
+          }
+        </div>
+      </div>
+      <a class="recovery-link" routerLink="/auth/recuperar-password">¿Olvidaste tu contraseña?</a>
+      @if (error(); as mensaje) {
+        <p class="auth-error" role="alert">{{ mensaje }}</p>
+      }
+      <button class="btn login-submit" type="submit" [disabled]="enviando()">
+        {{ enviando() ? 'Ingresando…' : 'Iniciar sesión' }}
+        <span aria-hidden="true">→</span>
+      </button>
+      <p class="login-status" role="status">
+        {{ enviando() ? 'Verificando tus datos. Esperá un momento.' : '' }}
+      </p>
+    </form>
+    <div class="oauth-actions">
+      <button class="btn" type="button" [disabled]="enviando()" (click)="oauth('google')">
+        Continuar con Google</button
+      ><button class="btn" type="button" [disabled]="enviando()" (click)="oauth('github')">
+        Continuar con GitHub
+      </button>
+    </div>
+    <p class="register-link">
+      ¿Todavía no tenés cuenta? <a routerLink="/auth/registro">Registrate</a>
+    </p>
+  </div>
+</section>

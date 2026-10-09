@@ -1,0 +1,235 @@
+/* Anotacion de responsabilidad: Estilos SCSS de App; define la presentacion visual, el responsive y los estados de la interfaz relacionados. */
+:host {
+  display: block;
+  min-height: 100dvh;
+}
+
+.app-shell {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  min-height: 84px;
+  padding: 16px max(24px, calc((100% - 1180px) / 2));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  background: rgb(9 9 11 / 94%);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(16px);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--ink);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  white-space: nowrap;
+}
+
+.brand strong {
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.brand-mark {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  color: var(--on-accent);
+  background: var(--accent);
+  border-radius: var(--radius);
+  font-size: 1.45rem;
+  line-height: 1;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.main-nav a,
+.profile-action,
+.icon-action,
+.footer a {
+  color: var(--muted);
+  transition:
+    color var(--transition),
+    background var(--transition);
+}
+
+.main-nav a {
+  padding: 10px 16px;
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.main-nav a:hover,
+.main-nav a.active,
+.profile-action:hover,
+.icon-action:hover,
+.footer a:hover {
+  color: var(--ink);
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+  background: var(--surface-hover);
+}
+
+.main-nav a.active {
+  font-weight: 600;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.icon-action {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--control-border);
+  border-radius: var(--radius);
+  font-size: 1.25rem;
+}
+
+.icon-action:hover {
+  background: var(--surface-hover);
+}
+
+.profile-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.avatar[data-inicial]::before {
+  content: attr(data-inicial);
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--surface-raised);
+  border: 1px solid var(--control-border);
+  color: var(--ink);
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.profile-label {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.logout-action {
+  min-height: 40px;
+  padding: 8px 12px;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--control-border);
+  border-radius: var(--radius);
+  font-size: 0.8rem;
+}
+
+.logout-action:hover:not(:disabled) {
+  background: var(--surface-hover);
+}
+
+.session-error {
+  margin: 16px auto;
+  padding: 16px;
+  color: var(--danger);
+  background: var(--danger-soft);
+  border-radius: var(--radius);
+  width: min(1180px, calc(100% - 32px));
+}
+
+@media (max-width: 560px) {
+  .brand {
+    gap: 8px;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+  }
+
+  .brand-mark {
+    width: 32px;
+    height: 32px;
+  }
+
+  .topbar-actions {
+    gap: 8px;
+  }
+}
+
+.page-content {
+  flex: 1;
+}
+
+.footer {
+  width: min(1180px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 28px 0 32px;
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+@media (max-width: 900px) {
+  .topbar {
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .main-nav {
+    order: 3;
+    width: 100%;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 4px;
+    margin: -4px;
+  }
+
+  .main-nav a {
+    padding: 10px 14px;
+    white-space: nowrap;
+  }
+
+  .profile-label {
+    display: none;
+  }
+
+  .footer {
+    width: min(100% - 32px, 1180px);
+    flex-wrap: wrap;
+    gap: 12px 24px;
+  }
+}

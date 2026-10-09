@@ -1,0 +1,127 @@
+<!-- Anotacion de responsabilidad: Plantilla HTML de Checkout; define la estructura y los estados visuales de esta pantalla o componente Angular. -->
+<section class="page">
+  <h1>Checkout · compra con pago simulado</h1>
+  <p class="feedback">
+    Demostración académica: no se cobra dinero real ni se solicita tarjeta. Al confirmar se registra
+    la compra y se genera su comprobante con QR. El personal valida ingreso y candy, no el pago.
+  </p>
+  @if (cargando()) {
+    <p role="status">Cargando…</p>
+  }
+  @if (error()) {
+    <p role="alert" class="error">{{ error() }}</p>
+  }
+  @if (!red.online()) { <p role="status">Sin conexión. La cotización y la compra requieren internet; tu selección se conserva.</p> }
+  @if (carrito.funcion() === id && carrito.butacas().length) {
+    @if (pelicula(); as p) {
+      <h2>{{ p.titulo }}</h2>
+      <p>Clasificación: {{ p.clasificacion }} · {{ p.idioma }} · {{ p.formato }}</p>
+    }
+    @if (funcion(); as f) {
+      <p>
+        {{ f.sala.nombre }} · {{ f.funcion.inicio | date: 'dd/MM/yyyy HH:mm' : '-0300' }} (Argentina) ·
+        {{ f.funcion.idioma }} · {{ f.funcion.formato }} · Butacas
+        {{ carrito.butacas().join(', ') }}
+      </p>
+    }
+    <form (submit)="reservar($event)">
+      @if (sesion.autenticado()) {
+        <label for="checkout-nombre">Nombre y apellido del comprador</label
+        ><input id="checkout-nombre" [formField]="formulario.nombre" autocomplete="name" />
+      }
+      <label for="checkout-email">Correo de contacto</label
+      ><input
+        id="checkout-email"
+        type="email"
+        [formField]="formulario.email"
+        autocomplete="email"
+      />
+      @if (!sesion.autenticado() && pelicula()?.clasificacion !== 'ATP') {
+        <label for="checkout-edad"
+          ><input id="checkout-edad" type="checkbox" [formField]="formulario.edad" /> Confirmo que
+          cumplo la edad mínima de la película.</label
+        >
+      } @else if (sesion.autenticado()) {
+        <p>
+          La edad se verifica en servidor según tu fecha de nacimiento. Si falta, completá
+          <a routerLink="/perfil">Mi perfil</a>.
+        </p>
+      }
+      <label for="checkout-cupon">Cupón (opcional)</label
+      ><input id="checkout-cupon" [formField]="formulario.cupon" />
+      @if (sesion.autenticado()) {
+        <p>Crédito disponible: {{ disponible() | currency: 'ARS' }}</p>
+        <label for="checkout-credito">Crédito a aplicar</label
+        ><input
+          #creditoInput
+          id="checkout-credito"
+          type="number"
+          step="0.01"
+          placeholder="0"
+          [formField]="formulario.credito"
+          [attr.aria-invalid]="errorCredito() ? 'true' : null"
+          [attr.aria-describedby]="
+            errorCredito() ? 'checkout-credito-ayuda checkout-credito-error' : 'checkout-credito-ayuda'
+          "
+          (input)="revisarEntradaCredito($event)"
+        />
+        <p id="checkout-credito-ayuda" class="hint">
+          Opcional: es saldo a favor generado por cancelaciones, no una tarjeta de crédito. Dejá 0 o
+          el campo vacío para no usarlo. El importe no puede superar tu saldo ni el total después de
+           los descuentos; el resto corresponde al pago simulado, sin cobro real.
+        </p>
+        @if (errorCredito(); as detalle) {
+          <p id="checkout-credito-error" class="error" role="alert">{{ detalle }}</p>
+        }
+      }
+      <button class="btn" type="button" [disabled]="ocupado() || !listaParaComprar()" (click)="cotizar()">
+        Calcular total en servidor
+      </button>
+      @if (cotizacion(); as c) {
+        @if (vigente()) {
+          <article class="card">
+            <h2>Resumen definitivo al momento de consultar</h2>
+            @for (e of c.entradas; track e.butaca) {
+              <p>Butaca {{ e.butaca }} · {{ e.tipo }} · {{ e.precio | currency: 'ARS' }}</p>
+            }
+            @for (i of c.candy; track $index) {
+              <p>{{ i.cantidad }} × {{ i.nombre }} · {{ i.precio | currency: 'ARS' }}</p>
+            }
+            <p>
+              Subtotal {{ c.subtotal | currency: 'ARS' }} · Descuento
+              {{ c.descuento | currency: 'ARS' }}
+            </p>
+            <p>Total {{ c.total | currency: 'ARS' }} · Crédito {{ c.credito | currency: 'ARS' }}</p>
+            <strong>Importe del pago simulado: {{ c.a_pagar | currency: 'ARS' }}</strong>
+            <p>Se revalidarán precio y disponibilidad al confirmar la compra.</p>
+          </article>
+        } @else {
+          <p role="status">Cambiaste el pedido. Volvé a calcular el total.</p>
+        }
+      }
+      <label for="checkout-pago"
+        ><input id="checkout-pago" type="checkbox" [formField]="formulario.pago" /> Entiendo que
+        este pago es simulado, sin cobro real ni pago pendiente en boletería.</label
+      >
+      <button
+        class="btn"
+        [disabled]="
+          ocupado() || !listaParaComprar() || !vigente() || !datos().pago || formulario.credito().invalid() ||
+          !!errorCredito()
+        "
+      >
+        {{ ocupado() ? 'Procesando…' : 'Confirmar compra simulada' }}
+      </button>
+    </form>
+    @if (!sesion.autenticado()) {
+      <p class="hint">Compra invitada: guardá el enlace privado del comprobante. No se envía automáticamente por correo y no permite cancelación ni crédito desde un perfil.</p>
+    }
+    <a class="btn" [routerLink]="['/compra', id, 'candy']">Modificar candy</a>
+  } @else {
+    <p>
+      Seleccioná butacas para iniciar el checkout. El carrito provisional no se conserva al
+      recargar.
+    </p>
+  }
+  <a class="btn" [routerLink]="['/compra', id, 'butacas']">Volver a butacas</a>
+</section>

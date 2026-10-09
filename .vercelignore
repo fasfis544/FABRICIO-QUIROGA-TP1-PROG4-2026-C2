@@ -1,0 +1,18 @@
+# Nunca enviar secretos, historiales privados ni archivos generados locales al hosting.
+.env
+.env.*
+**/.env
+**/.env.*
+src/environments/environment.ts
+src/environments/environment.production.ts
+/supabase/
+/docs/
+.git/
+.vscode/
+.idea/
+AGENTS.md
+.angular/
+node_modules/
+dist/
+coverage/
+**/*.log
