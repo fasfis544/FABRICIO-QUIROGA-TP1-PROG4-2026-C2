@@ -1,0 +1,87 @@
+<!-- Anotacion de responsabilidad: Plantilla HTML de Registro; define la estructura y los estados visuales de esta pantalla o componente Angular. -->
+<app-auth-frame
+  titulo="Creá tu cuenta"
+  descripcion="Sumá puntos y disfrutá de todos los beneficios de Aurora."
+>
+  @if (creada()) {
+    <p class="feedback success" role="status">
+      Tu cuenta está lista. Ya podés disfrutar de Aurora.
+    </p>
+    <a class="btn" routerLink="/perfil">Ir a mi cuenta</a>
+  } @else {
+    <form (submit)="registrar($event)" novalidate [attr.aria-busy]="enviando()">
+      <app-campo-auth
+        campoId="registro-nombre"
+        etiqueta="Nombre"
+        autocomplete="given-name"
+        [campo]="formulario.nombre"
+      />
+      <app-campo-auth
+        campoId="registro-apellido"
+        etiqueta="Apellido"
+        autocomplete="family-name"
+        [campo]="formulario.apellido"
+      />
+      <app-campo-auth
+        campoId="registro-email"
+        etiqueta="Correo electrónico"
+        tipo="email"
+        autocomplete="email"
+        [campo]="formulario.email"
+      />
+      <label for="registro-nacimiento">Fecha de nacimiento</label>
+      <input
+        id="registro-nacimiento"
+        type="date"
+        [formField]="formulario.fecha_nacimiento"
+        autocomplete="bday"
+      />
+      <label for="registro-grupo">Grupo sanguíneo</label>
+      <select id="registro-grupo" [formField]="formulario.grupo_sanguineo">
+        <option value="">Elegí tu grupo</option>
+        @for (g of grupos; track g) {
+          <option [value]="g">{{ g }}</option>
+        }
+      </select>
+      <label for="registro-ojos">Color de ojos</label
+      ><input id="registro-ojos" [formField]="formulario.color_ojos" />
+      <label for="registro-vacaciones">Días de vacaciones anuales</label
+      ><input
+        id="registro-vacaciones"
+        type="number"
+        step="1"
+        [formField]="formulario.vacaciones_anuales"
+      />
+      <p class="hint">
+        Datos solicitados por la consigna académica. No se usan para decidir acceso por rol ni se
+        publican.
+      </p>
+      <p class="hint">Elegí una contraseña de al menos 8 caracteres.</p>
+      <app-campo-auth
+        campoId="registro-password"
+        etiqueta="Contraseña"
+        tipo="password"
+        autocomplete="new-password"
+        [campo]="formulario.password"
+      />
+      <app-campo-auth
+        campoId="registro-repetir"
+        etiqueta="Confirmar contraseña"
+        tipo="password"
+        autocomplete="new-password"
+        [campo]="formulario.repetir"
+      />
+      @if (error(); as mensaje) {
+        <p class="feedback error" role="alert">{{ mensaje }}</p>
+      }
+      @for (e of formulario().errorSummary(); track $index) {
+        <p class="feedback error">{{ e.message }}</p>
+      }
+      <button class="btn" type="submit" [disabled]="enviando()">
+        {{ enviando() ? 'Creando cuenta…' : 'Crear cuenta' }}
+      </button>
+      <p class="status" role="status">{{ enviando() ? 'Estamos procesando tu registro.' : '' }}</p>
+    </form>
+    <p class="links">¿Ya tenés cuenta? <a routerLink="/auth/login">Ingresar</a></p>
+  }
+</app-auth-frame>

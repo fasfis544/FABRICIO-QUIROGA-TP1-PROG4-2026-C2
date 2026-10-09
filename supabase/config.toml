@@ -1,0 +1,7 @@
+[functions.confirmar-compra]
+# Se valida getUser() dentro de la función; también se admite compra anónima.
+verify_jwt = false
+
+[functions.enviar-push]
+# Exclusiva Cron/backend: autentica x-cine-push-secret; no acepta Origin del navegador.
+verify_jwt = false

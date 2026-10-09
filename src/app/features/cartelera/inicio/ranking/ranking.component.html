@@ -1,0 +1,79 @@
+<!-- Anotacion de responsabilidad: Plantilla HTML de Ranking; define la estructura y los estados visuales de esta pantalla o componente Angular. -->
+<section class="ranking-section" aria-labelledby="ranking-titulo">
+  <div class="ranking-heading">
+    <div>
+      <span class="eyebrow">EN PRIMERA FILA · TOP 3</span>
+      <h2 id="ranking-titulo">Las más vendidas</h2>
+      <p class="ranking-intro">Las películas que más entradas vendieron, en un vistazo.</p>
+    </div>
+    <a class="text-link" routerLink="/peliculas">
+      Ver cartelera <span aria-hidden="true">↗</span>
+    </a>
+  </div>
+  @if (cargando()) {
+    <p class="ranking-message" role="status">Preparando las más vendidas…</p>
+  } @else if (error()) {
+    <div class="ranking-message">
+      <p>No pudimos cargar el ranking. Podés volver a intentarlo.</p>
+      <button class="button button-outline" type="button" (click)="reintentar.emit()">
+        Reintentar ranking
+      </button>
+    </div>
+  } @else if (peliculas().length) {
+    <ol class="ranking-grid" role="list" aria-label="Películas ordenadas por entradas vendidas">
+      @for (p of peliculas(); track p.id) {
+        <li>
+          <a
+            class="ranking-card"
+            [class.ranking-card--first]="$first"
+            [routerLink]="['/peliculas', p.id]"
+          >
+            <div class="ranking-poster">
+              <img
+                [ngSrc]="portada(p)"
+                [alt]="'Afiche de ' + p.titulo"
+                width="88"
+                height="132"
+                [priority]="$first"
+                (error)="portadaNoDisponible(p.id)"
+              />
+              <span class="ranking-age">
+                <span class="ranking-sr-only">Clasificación de edad: </span>{{ p.clasificacion }}
+              </span>
+            </div>
+            <div class="ranking-info">
+              <div class="ranking-topline">
+                <span class="ranking-position">
+                  <span class="ranking-sr-only">Puesto </span>0{{ $index + 1 }}
+                </span>
+                @if ($first) {
+                  <span class="ranking-favorite"><span aria-hidden="true">✦</span> Más vendida</span>
+                }
+              </div>
+              <h3>{{ p.titulo }}</h3>
+              <p class="ranking-meta">
+                {{ p.duracion_minutos }} min
+                @if (p.generos.length) {
+                  · {{ p.generos[0].nombre }}
+                }
+              </p>
+              <p class="ranking-sales">
+                <strong>{{ p.ventas | number }}</strong>
+                {{ p.ventas === 1 ? 'entrada vendida' : 'entradas vendidas' }}
+              </p>
+              <span class="ranking-action">Ver película <span aria-hidden="true">↗</span></span>
+            </div>
+          </a>
+        </li>
+      }
+    </ol>
+  } @else {
+    <div class="ranking-message ranking-empty">
+      <span class="ranking-empty-icon" aria-hidden="true">✦</span>
+      <div>
+        <p class="ranking-empty-title">La próxima favorita está por descubrirse.</p>
+        <p>El ranking aparecerá cuando haya ventas confirmadas.</p>
+      </div>
+    </div>
+  }
+</section>

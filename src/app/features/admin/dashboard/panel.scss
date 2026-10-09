@@ -1,0 +1,156 @@
+/* Anotacion de responsabilidad: Estilos SCSS de Panel; define la presentacion visual, el responsive y los estados de la interfaz relacionados. */
+:host {
+  display: block;
+}
+.page {
+  margin: 0;
+  width: 100%;
+}
+.dashboard-heading {
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+.eyebrow {
+  color: var(--muted);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  font-weight: 750;
+  margin: 0 0 12px;
+}
+h1 {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+  margin: 0;
+}
+.intro {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  max-width: 540px;
+  margin: 16px 0 0;
+}
+.account-shortcut {
+  flex-shrink: 0;
+  display: inline-flex;
+  gap: 18px;
+  align-items: center;
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid var(--control-border);
+  border-radius: 10px;
+  font-size: 0.8rem;
+}
+.area-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+.area-filter {
+  margin-bottom: 24px;
+}
+.area-filter label {
+  display: block;
+  margin-bottom: 8px;
+}
+.area-filter input {
+  width: min(100%, 540px);
+}
+.area-filter p {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.area-card {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: linear-gradient(145deg, var(--surface-raised), var(--surface));
+  min-width: 0;
+}
+.area-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.area-number {
+  color: var(--muted);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  padding: 9px;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: 650;
+}
+h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+}
+.area-description {
+  color: var(--muted);
+  margin: 16px 0 20px;
+  min-height: 44px;
+  font-size: 0.8rem;
+  line-height: 1.7;
+}
+nav {
+  display: grid;
+  gap: 3px;
+}
+nav a {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+  min-height: 62px;
+}
+nav strong {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+nav small {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 5px;
+  line-height: 1.5;
+}
+.link-arrow {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: var(--accent-soft);
+  flex-shrink: 0;
+}
+nav a:hover .link-arrow {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.dashboard-note {
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.6;
+  margin-top: 24px;
+}
+@media (max-width: 600px) {
+  .area-grid {
+    grid-template-columns: 1fr;
+  }
+  .dashboard-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .area-card {
+    padding: 20px;
+  }
+  .area-description {
+    min-height: 0;
+  }
+}

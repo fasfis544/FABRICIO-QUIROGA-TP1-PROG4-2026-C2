@@ -1,0 +1,118 @@
+<!-- Anotacion de responsabilidad: Plantilla HTML de Inicio; define la estructura y los estados visuales de esta pantalla o componente Angular. -->
+<app-ranking
+  [peliculas]="ranking()"
+  [cargando]="cargando()"
+  [error]="error()"
+  (reintentar)="cargar()"
+/>
+<section class="hero">
+  <div class="hero-copy">
+    <span class="eyebrow">CINE · EXPERIENCIAS · EMOCIONES</span>
+    <h1>Historias que<br /><em>se quedan</em> con vos.</h1>
+    <p>
+      Descubrí tu próxima película, elegí tu lugar y viví el cine a tu manera. una buena historia
+      empieza con sancor seguros
+    </p>
+    <div class="hero-actions">
+      <a class="button button-primary" routerLink="/peliculas">
+        Ver cartelera <span aria-hidden="true">→</span>
+      </a>
+      <a class="text-link" routerLink="/proximamente">
+        Próximos estrenos <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </div>
+  <div class="hero-art">
+    <img
+      ngSrc="/images/imagen-publicitaria.png"
+      width="1536"
+      height="1024"
+      sizes="(max-width: 900px) 100vw, 50vw"
+      priority
+      alt="Publicidad de Sancor Seguros en una sala de cine con espectadores"
+    />
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">SELECCIÓN AURORA</span>
+      <h2>En cartelera</h2>
+    </div>
+    <a class="text-link" routerLink="/peliculas">Ver todas <span aria-hidden="true">→</span></a>
+  </div>
+
+  <div class="movie-grid">
+    @if (cargando()) {
+      <p role="status">Cargando cartelera…</p>
+    }
+    @if (error()) {
+      <p role="alert">{{ error() }}</p>
+      <button class="btn" (click)="cargar()">Reintentar</button>
+    }
+    @for (movie of movies(); track movie.id) {
+      <a class="movie-card" [routerLink]="['/peliculas', movie.id]">
+        <div class="poster" [style.--poster-accent]="movie.accent">
+          <app-imagen-cine
+            [src]="movie.image"
+            [nombre]="movie.title"
+            sizes="(max-width: 900px) 50vw, 25vw"
+          />
+          <span class="age-badge">{{ movie.age }}</span>
+          <span class="poster-shade"></span>
+          <span class="play-button" aria-hidden="true">▶</span>
+        </div>
+        <div class="movie-info">
+          <h3>{{ movie.title }}</h3>
+          <p>{{ movie.genre }}</p>
+        </div>
+      </a>
+    } @empty {
+      @if (!cargando() && !error()) {
+        <p>No hay películas en cartelera.</p>
+      }
+    }
+  </div>
+</section>
+
+<section class="feature-section">
+  <div class="feature-copy">
+    <span class="eyebrow">HOY EN AURORA</span>
+    <h2>Elegí tu función.<br /><em>Nosotros hacemos el resto.</em></h2>
+    <p>
+      Consultá horarios, seleccioná tus butacas y sumá algo rico para disfrutar antes de que empiece
+      la película.
+    </p>
+    <a class="button button-dark" routerLink="/peliculas">
+      Explorar funciones <span aria-hidden="true">→</span>
+    </a>
+  </div>
+  <div class="schedule-card">
+    <div class="schedule-top">
+      <span>HORARIOS Y SALAS</span>
+    </div>
+    <h3>Programación Aurora</h3>
+    <p class="schedule-meta">Consultá las funciones disponibles de cada película.</p>
+    <div class="showtimes">
+      <a routerLink="/peliculas" class="showtime"
+        ><strong>Ver funciones</strong><span>Elegí tu película</span></a
+      >
+    </div>
+  </div>
+</section>
+
+<section class="membership">
+  <div class="membership-icon" aria-hidden="true">✦</div>
+  <div>
+    <span class="eyebrow">CLUB AURORA</span>
+    <h2>El cine también se disfruta fuera de la sala.</h2>
+    <p>
+      Sumá puntos con cada compra, accedé a beneficios y enterate antes que nadie de los próximos
+      estrenos.
+    </p>
+  </div>
+  <a class="button button-outline" routerLink="/auth/registro">
+    Quiero ser parte <span aria-hidden="true">→</span>
+  </a>
+</section>

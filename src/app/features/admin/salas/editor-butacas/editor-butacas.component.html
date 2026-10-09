@@ -1,0 +1,132 @@
+<!-- Anotacion de responsabilidad: Plantilla HTML de Editor Butacas; define la estructura y los estados visuales de esta pantalla o componente Angular. -->
+<section class="page">
+  <h1>Mantenimiento de butacas</h1>
+  <p>
+    Se conserva el plano del Word: A–T, bloques 4+20+4; J/K accesibles 2+10+2; R/S/T VIP. Bloquear
+    no elimina ni cambia el tipo de asiento.
+  </p>
+  <a class="btn btn--ghost" routerLink="/admin/salas">Volver a salas</a>
+  @if (error()) {
+    <p class="error" role="alert">{{ error() }}</p>
+  }
+  @if (exito()) {
+    <p role="status">{{ exito() }}</p>
+  }
+  @if (cargando()) {
+    <p role="status">Cargando plano…</p>
+  }
+  <label for="mantenimiento-sala">Sala</label>
+  <select
+    id="mantenimiento-sala"
+    [value]="salaId()"
+    [disabled]="cargando() || ocupado()"
+    (change)="elegirSala($event)"
+  >
+    <option value="">Seleccioná una sala</option>
+    @for (s of salas(); track s.id) {
+      <option [value]="s.id">{{ s.nombre }}{{ s.activa ? '' : ' (inactiva)' }}</option>
+    }
+  </select>
+  <button
+    class="btn"
+    type="button"
+    [disabled]="!salaId() || cargando() || ocupado()"
+    (click)="cargarPlano()"
+  >
+    Actualizar plano
+  </button>
+  @if (plano(); as p) {
+    <h2>{{ p.sala.nombre }}</h2>
+    <p>{{ p.butacas.length }} plazas físicas · {{ bloqueadas() }} bloqueadas por mantenimiento.</p>
+    <button
+      class="btn btn--danger"
+      type="button"
+      [disabled]="ocupado() || cargando()"
+      (click)="eliminarSala()"
+    >
+      Eliminar sala definitivamente
+    </button>
+    <p class="hint">
+      Solo se puede eliminar una sala sin funciones ni historial. Si ya fue utilizada, desactivala
+      para conservar sus registros.
+    </p>
+    @if (!p.sala.distribucion_documento) {
+      <p role="status">
+        Sala histórica: adaptala al plano del Word desde Salas antes de administrar mantenimiento.
+      </p>
+    }
+    <p id="mantenimiento-ayuda">
+      Seleccioná las butacas y explicá el motivo. «Protegida» significa que tiene una compra o
+      reserva vigente en una función futura o en curso; no se permite bloquearla.
+    </p>
+    <div
+      class="seat-map"
+      tabindex="0"
+      role="region"
+      aria-label="Plano de mantenimiento desplazable horizontalmente"
+      aria-describedby="mantenimiento-ayuda"
+    >
+      <p class="screen">PANTALLA</p>
+      @for (fila of filas(); track fila.nombre) {
+        <div class="seat-row" role="group" [attr.aria-label]="'Fila ' + fila.nombre">
+          <strong>{{ fila.nombre }}</strong>
+          @for (bloque of fila.bloques; track $index) {
+            <div class="seat-block">
+              @for (b of bloque; track b.codigo) {
+                <button
+                  class="seat"
+                  type="button"
+                  [class.vip]="b.tipo === 'vip'"
+                  [class.accessible]="b.tipo === 'accesible'"
+                  [class.maintenance]="b.bloqueada"
+                  [class.selected]="seleccion().includes(b.codigo)"
+                  [disabled]="ocupado() || cargando() || !p.sala.distribucion_documento"
+                  [attr.aria-pressed]="seleccion().includes(b.codigo)"
+                  (click)="elegir(b.codigo)"
+                >
+                  {{ b.codigo }} · {{ b.tipo }} · {{ b.bloqueada ? 'Mantenimiento' : 'Habilitada'
+                  }}{{ b.protegida ? ' · Protegida' : '' }}
+                </button>
+              }
+            </div>
+          }
+        </div>
+      }
+    </div>
+    <p role="status">Seleccionadas: {{ seleccion().join(', ') || 'ninguna' }}</p>
+    @for (b of p.butacas; track b.codigo) {
+      @if (seleccion().includes(b.codigo) && b.motivo) {
+        <p>{{ b.codigo }} · Último motivo: {{ b.motivo }}</p>
+      }
+    }
+    @if (hayProtegidas()) {
+      <p role="status">
+        La selección incluye butacas protegidas. Quitalas para bloquear; restaurar no modifica sus
+        compras.
+      </p>
+    }
+    <form (submit)="guardar($event, true)" aria-describedby="mantenimiento-ayuda">
+      <label for="mantenimiento-motivo">Motivo de bloqueo o restauración</label>
+      <textarea
+        id="mantenimiento-motivo"
+        [formField]="formulario.motivo"
+        aria-describedby="mantenimiento-limite"
+      ></textarea>
+      <p id="mantenimiento-limite">
+        Entre 5 y 500 caracteres. El cambio afecta todas las funciones de esta sala y queda
+        auditado.
+      </p>
+      <button class="btn" [disabled]="!puedeGuardar() || hayProtegidas()">
+        {{ ocupado() ? 'Guardando…' : 'Bloquear por mantenimiento' }}
+      </button>
+      <button
+        class="btn btn--ghost"
+        type="button"
+        [disabled]="!puedeGuardar()"
+        (click)="guardar($event, false)"
+      >
+        Restaurar butacas
+      </button>
+    </form>
+  }
+</section>

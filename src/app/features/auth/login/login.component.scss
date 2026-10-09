@@ -1,0 +1,246 @@
+/* Anotacion de responsabilidad: Estilos SCSS de Login; define la presentacion visual, el responsive y los estados de la interfaz relacionados. */
+:host {
+  display: block;
+}
+
+.login-page {
+  width: min(1080px, calc(100% - 48px));
+  min-height: calc(100dvh - 170px);
+  margin: 0 auto;
+  padding: 72px 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 440px);
+  align-items: center;
+  gap: 80px;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+h1 {
+  margin-top: 24px;
+  font-size: clamp(2.5rem, 4.4vw, 3.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.055em;
+}
+
+h1 span {
+  color: var(--muted);
+}
+
+.login-intro > p {
+  max-width: 410px;
+  margin-top: 24px;
+  color: var(--muted);
+}
+
+.benefits {
+  margin: 36px 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 16px;
+  color: var(--accent);
+  font-size: 0.9rem;
+}
+
+.benefits li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.benefits span {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+
+.login-card {
+  min-width: 0;
+  padding: 36px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+
+.login-mark {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 24px;
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: 1.6rem;
+}
+
+h2 {
+  font-size: 1.6rem;
+}
+
+.card-description {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+form {
+  margin-top: 28px;
+}
+
+.field {
+  margin-top: 12px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--ink);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+input {
+  width: 100%;
+  min-width: 0;
+  font-size: 0.95rem;
+}
+
+.field-error {
+  min-height: 22px;
+  margin-top: 6px;
+  color: var(--danger);
+  font-size: 0.78rem;
+}
+
+.password-input {
+  position: relative;
+}
+
+.password-input input {
+  padding-right: 88px;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 1px;
+  right: 5px;
+  min-height: 44px;
+  padding: 0 10px;
+  color: var(--accent);
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.password-toggle:hover:not(:disabled) {
+  background: var(--surface-hover);
+}
+
+.recovery-link {
+  display: block;
+  width: fit-content;
+  margin: 2px 0 20px auto;
+  padding: 4px 0;
+  color: var(--accent);
+  font-size: 0.82rem;
+}
+
+.recovery-link:hover,
+.register-link a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.auth-error {
+  margin-bottom: 20px;
+  padding: 12px 14px;
+  background: var(--danger-soft);
+  color: var(--danger);
+  border: 1px solid var(--danger);
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+}
+
+.login-submit {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.login-status {
+  min-height: 22px;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.register-link {
+  margin-top: 18px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.register-link a {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 900px) {
+  .login-page {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 36px;
+    max-width: 520px;
+    padding: 48px 0;
+  }
+  .benefits {
+    display: none;
+  }
+  .login-intro .text-link {
+    margin-top: 16px;
+  }
+}
+
+@media (max-width: 560px) {
+  .login-page {
+    width: calc(100% - 32px);
+    padding: 32px 0;
+  }
+  .login-card {
+    padding: 24px;
+  }
+  h1 {
+    font-size: 2.35rem;
+  }
+}
+.oauth-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}

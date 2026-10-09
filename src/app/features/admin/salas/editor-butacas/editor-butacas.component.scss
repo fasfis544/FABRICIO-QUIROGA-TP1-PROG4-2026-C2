@@ -1,0 +1,15 @@
+/* Anotacion de responsabilidad: Estilos SCSS de Editor Butacas; define la presentacion visual, el responsive y los estados de la interfaz relacionados. */
+@use '../../../cine/cine';
+
+.seat.maintenance {
+  border-style: dashed;
+}
+.seat.selected {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.btn--danger {
+  border-color: var(--danger);
+  color: var(--danger);
+}

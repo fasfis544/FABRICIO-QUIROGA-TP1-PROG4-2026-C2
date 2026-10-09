@@ -1,0 +1,37 @@
+/* Anotacion de responsabilidad: Estilos SCSS de  Variables; define la presentacion visual, el responsive y los estados de la interfaz relacionados. */
+:root {
+  color-scheme: dark;
+
+  // Negro, grafito y plata. Conservamos los nombres usados por los componentes.
+  --paper: #09090b;
+  --surface: #141416;
+  --surface-raised: #1c1c1f;
+  --surface-hover: #252529;
+  --ink: #f4f4f5;
+  --muted: #a1a1aa;
+  --line: #303036;
+  --control-border: #73737d;
+
+  --accent: #e4e4e7;
+  --accent-dark: #c8c8d0;
+  --accent-soft: #252529;
+  --on-accent: #111113;
+  --focus: #e4e4e7;
+
+  // Los estados mantienen su significado sin dominar la paleta.
+  --forest: #98d5ae;
+  --forest-soft: #17291f;
+  --gold: #c7c7d0;
+  --danger: #f4a3a3;
+  --danger-soft: #321c20;
+
+  --font-body: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-display: var(--font-body);
+
+  --radius: 10px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+  --shadow: 0 12px 32px rgb(0 0 0 / 24%);
+  --shadow-hover: 0 20px 48px rgb(0 0 0 / 40%);
+  --transition: 180ms ease;
+}

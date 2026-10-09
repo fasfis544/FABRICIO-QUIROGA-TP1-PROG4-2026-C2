@@ -1,0 +1,11 @@
+<!-- Anotacion de responsabilidad: Plantilla HTML de Sin Permiso; define la estructura y los estados visuales de esta pantalla o componente Angular. -->
+<section class="page" aria-labelledby="error-permiso-titulo">
+  <p class="eyebrow">Acceso restringido</p>
+  <h1 #titulo id="error-permiso-titulo" tabindex="-1">No tenés permiso para acceder</h1>
+  <p>
+    Esta sección requiere una cuenta activa con el rol correspondiente. Iniciar sesión no concede
+    permisos de administración ni de empleado.
+  </p>
+  <a class="btn" routerLink="/auth/login">Ir a iniciar sesión</a>
+  <a class="btn btn--ghost" routerLink="/peliculas">Volver a cartelera</a>
+</section>

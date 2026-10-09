@@ -1,0 +1,54 @@
+<!-- Anotacion de responsabilidad: Plantilla HTML de Admin Layout; define la estructura y los estados visuales de esta pantalla o componente Angular. -->
+<div class="admin-workspace">
+  <aside class="admin-sidebar" aria-label="Secciones de administración">
+    <a class="workspace-brand" routerLink="/admin"
+      ><span class="workspace-mark" aria-hidden="true">A</span
+      ><span><strong>Aurora Studio</strong><small>Administración del cine</small></span></a
+    >
+    <button
+      class="nav-toggle"
+      type="button"
+      aria-controls="admin-menu"
+      [attr.aria-expanded]="abierto()"
+      (click)="abierto.set(!abierto())"
+    >
+      {{ abierto() ? 'Cerrar secciones' : 'Explorar secciones' }} <span aria-hidden="true">☰</span>
+    </button>
+    <nav
+      id="admin-menu"
+      class="side-nav"
+      [class.is-open]="abierto()"
+      aria-label="Navegación administrativa"
+    >
+      <a
+        class="overview-link"
+        routerLink="/admin"
+        routerLinkActive="is-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        ariaCurrentWhenActive="page"
+        >Vista general <span aria-hidden="true">↗</span></a
+      >
+      @for (area of areas; track area.id) {
+        <div class="nav-group">
+          <p>{{ area.titulo }}</p>
+          @for (enlace of area.enlaces; track enlace.ruta) {
+            <a
+              [routerLink]="enlace.ruta"
+              routerLinkActive="is-active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              ariaCurrentWhenActive="page"
+              >{{ enlace.titulo }}</a
+            >
+          }
+        </div>
+      }
+      <div class="personal-links">
+        <a routerLink="/perfil">Mis datos personales</a
+        ><a routerLink="/peliculas">Ver cartelera <span aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+  </aside>
+  <section #contenido class="admin-main" aria-label="Área de trabajo administrativa">
+    <router-outlet (activate)="vistaActivada()" />
+  </section>
+</div>

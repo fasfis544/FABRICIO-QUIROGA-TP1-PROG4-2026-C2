@@ -1,0 +1,154 @@
+/* Anotacion de responsabilidad: Estilos SCSS de Mi Perfil; define la presentacion visual, el responsive y los estados de la interfaz relacionados. */
+.account-page {
+  width: min(1180px, calc(100% - 32px));
+}
+.account-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+.eyebrow {
+  color: var(--muted);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  margin: 0 0 12px;
+}
+h1 {
+  margin: 0;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  letter-spacing: -0.04em;
+}
+.intro {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  max-width: 590px;
+}
+.role-badge {
+  padding: 9px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  font-size: 0.75rem;
+}
+.account-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+.personal-data,
+.account-aside {
+  display: grid;
+  gap: 24px;
+  min-width: 0;
+}
+.account-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 28px;
+  min-width: 0;
+}
+h2 {
+  margin: 0 0 12px;
+  font-size: 1.15rem;
+}
+.hint,
+.permissions p:not(.eyebrow) {
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.7;
+}
+form {
+  max-width: none;
+}
+.fields-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 20px;
+}
+label {
+  font-size: 0.8rem;
+  font-weight: 550;
+}
+.field-error {
+  font-size: 0.75rem;
+  color: var(--danger);
+  line-height: 1.5;
+  margin: 6px 0 0;
+}
+.field-error:empty {
+  display: none;
+}
+input[aria-invalid='true'],
+select[aria-invalid='true'] {
+  border-color: var(--danger);
+}
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+.btn {
+  font-size: 0.8rem;
+  min-height: 44px;
+}
+.security-link {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 44px;
+  align-items: center;
+  font-size: 0.8rem;
+  margin-top: 16px;
+  line-height: 1.6;
+}
+.security-link:hover {
+  text-decoration: underline;
+}
+.activity-links {
+  display: grid;
+  gap: 0;
+  margin: 20px 0 0;
+}
+.activity-links a {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  min-height: 46px;
+  border-top: 1px solid var(--line);
+  font-size: 0.8rem;
+}
+.activity-links a:hover {
+  color: var(--muted);
+}
+.success {
+  color: var(--forest);
+  margin-bottom: 20px;
+}
+@media (max-width: 800px) {
+  .account-layout {
+    grid-template-columns: 1fr;
+  }
+  .account-aside {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 540px) {
+  .account-heading {
+    flex-direction: column;
+  }
+  .fields-grid,
+  .account-aside {
+    grid-template-columns: 1fr;
+  }
+  .account-card {
+    padding: 20px;
+  }
+}
