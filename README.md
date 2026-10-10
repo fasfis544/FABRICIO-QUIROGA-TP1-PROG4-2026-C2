@@ -1,83 +1,191 @@
-# Cine Aurora — Angular + Supabase + PWA
+## Cine Aurora — Sistema de cine
 
-Aplicación académica de gestión/venta de cine. **Pago simulado: no cobra dinero real.** Frontend publicado: **https://cine-aurora.vercel.app**. Los flujos centrales están implementados; la entrega completa todavía tiene módulos y verificaciones pendientes. Estado y trazabilidad: [documento de requerimientos](docs/requerimientos.md).
+Aplicación web progresiva para administrar un cine de varias salas y permitir la
+compra **simulada** de entradas y productos de candy. El proyecto está pensado
+para una entrega académica: no procesa dinero real, no reemplaza un sistema
+contable y no incluye aplicaciones nativas.
 
-## Ejecutar
+**Demo publicada:** <https://cine-aurora.vercel.app>
 
-Node compatible con Angular 22.2 (`node --version`), npm y proyecto Supabase. Instalar:
+## 1. ¿Qué resuelve?
 
-```powershell
-npm ci
+El sistema reúne en una misma aplicación:
+
+- Cartelera, próximos estrenos, búsqueda, filtros, géneros y ranking de ventas.
+- Compra como invitado o cliente registrado, con selección de 1 a 8 butacas.
+- Candy, combos, cupones, crédito, puntos y recompensas.
+- Comprobante digital PDF, QR y consulta segura de la compra.
+- Historial, películas vistas, reseñas, alertas y notificaciones Web Push.
+- Operación de empleado: validar entrada o retirar candy desde el mismo QR.
+- Backoffice de administrador: películas, géneros, salas, butacas, funciones,
+  programación por rango, precios, ofertas, usuarios, reportes y auditoría.
+
+### Actores
+
+| Actor | Puede hacer |
+| --- | --- |
+| Invitado | Consultar cartelera y comprar con un enlace privado; no tiene beneficios ni historial de cuenta. |
+| Cliente | Comprar, cancelar dentro de las reglas, consultar historial, reseñar y usar beneficios. |
+| Empleado | Validar una entrada o la prestación de candy de una función seleccionada. |
+| Administrador | Gestionar catálogo y operación, usuarios, reportes y auditoría. |
+
+## 2. Flujo principal
+
+1. El visitante consulta una película y una función.
+2. Selecciona butacas disponibles y, opcionalmente, productos o combos.
+3. El checkout vuelve a cotizar y valida edad, stock, modalidad, sala y
+   disponibilidad en el servidor.
+4. `confirmar-compra` genera el QR y el PDF antes de confirmar el conjunto.
+5. PostgreSQL ejecuta la compra como una operación atómica: entradas, stock,
+   beneficios, puntos, comprobante y notificación se guardan juntos o se
+   rechazan juntos.
+6. El QR permite consumir **una** prestación: entrada o candy. El token del
+   comprobante es distinto del QR y no se expone en logs.
+
+El carrito del navegador es solo una ayuda visual: no reserva butacas. La
+autoridad final siempre es la base de datos, que usa locks, restricciones e
+idempotencia para evitar sobreventa y compras duplicadas.
+
+## 3. Arquitectura
+
+```text
+Angular SPA/PWA
+├── core/          Auth, sesión, guards, Supabase, día civil y Web Push
+├── data-access/   Servicios, modelos y validación de respuestas
+├── features/      Cartelera, compra, perfil, empleados y administración
+└── shared/        Componentes, QR/PDF, exportaciones y utilidades
+
+Supabase
+├── Auth           Identidad y sesiones
+├── PostgreSQL     Datos, RPC, RLS, reglas, locks y auditoría
+├── Storage        Afiches y productos públicos
+├── Realtime       Eventos públicos para actualizar disponibilidad
+└── Edge Functions confirmar-compra y enviar-push
 ```
 
-Copiar `.env.example` a `.env.local` y completar **solo URL y clave pública anon**. En esta PC ya se preservó el entorno anterior en ese archivo. Nunca poner `service_role` en frontend. Los `environment*.ts` son generados/ignorados, no archivos a publicar en Git.
+Tecnologías principales: Angular 22.2, TypeScript 6, Supabase JS,
+PostgreSQL/PLpgSQL, Deno Edge Functions, ZXing, jsPDF, qrcode, Vitest/jsdom y
+PGlite. La aplicación usa componentes standalone, lazy loading, signals,
+Reactive Forms y Service Worker. En producción el worker cachea únicamente la
+cartelera pública; nunca cachea sesión, compras, QR ni datos personales.
+
+## 4. Navegación
+
+- Público: `/`, `/peliculas`, `/proximamente`, `/peliculas/:id`.
+- Compra: `/compra/:funcionId/butacas`, `/compra/:funcionId/candy`,
+  `/compra/:funcionId/checkout` y `/compra/confirmacion/:compraId`.
+- Cuenta: `/perfil`, `/perfil/compras`, `/perfil/peliculas`,
+  `/perfil/puntos`, `/recompensas`, `/canjes`, `/credito` y
+  `/notificaciones`.
+- Auth: `/auth/login`, `/registro`, `/recuperar-password`,
+  `/restablecer-password`, `/confirmacion-email` y `/oauth`.
+- Administración: `/admin/**`, con catálogo, programación, candy,
+  promociones, accesos, reportes y auditoría.
+- Empleados: `/empleados/entrada` y `/empleados/candy`.
+
+`authGuard` protege la cuenta; `rolGuard` protege administración y empleados.
+Los guards mejoran la navegación, pero la autorización se verifica nuevamente
+en Supabase mediante el rol activo de `perfiles`, nunca mediante metadata del
+navegador.
+
+## 5. Reglas de negocio importantes
+
+- Las películas activas se separan automáticamente entre cartelera y
+  próximamente usando la fecha civil argentina.
+- Una función define sala, idioma, formato y precio. Su fin incluye duración
+  más 30 minutos de limpieza; no puede superponerse con otra de la sala.
+- Las salas tienen 532 plazas distribuidas en filas accesibles, VIP y normales.
+  Las butacas pueden mantenerse bloqueadas por mantenimiento.
+- Una compra acepta entre 1 y 8 butacas distintas, consecutivas, de la misma
+  fila y bloque. La edad y la clasificación se validan en el servidor.
+- Stock, descuentos, crédito y puntos se calculan en PostgreSQL, no en el
+  navegador. La compra es un pago simulado.
+- Las bajas de catálogo son lógicas y recuperables para conservar historia,
+  compras y auditoría.
+- Una cuenta puede mantener una reseña vigente por película; el historial de
+  reseñas se conserva.
+
+## 6. Instalación local
+
+Requisitos: Node compatible con Angular 22.2, npm y un proyecto Supabase
+configurado. El repositorio incluye `package-lock.json`, por lo que se instala
+con `npm ci`.
 
 ```powershell
+Copy-Item .env.example .env.local
+# Editar .env.local con SUPABASE_URL y SUPABASE_ANON_KEY
+npm ci
 npm start
 ```
 
-Abrir `http://localhost:4200`. Para otro puerto: `npm start -- --port 4325`. Si usás `ng` directamente: ejecutar primero `npm run env:setup`.
+Abrir <http://localhost:4200>. Para otro puerto:
+`npm start -- --port 4325`. Los scripts `prestart`, `prebuild` y `pretest`
+generan automáticamente los archivos ignorados de `src/environments/`.
+También puede ejecutarse `npm run env:setup`.
 
-## Supabase / activación imprescindible
+Solo se permiten en el frontend la URL y la clave pública `anon`. Nunca
+colocar `service_role`, claves VAPID, secretos de Push ni tokens en `.env.local`,
+el código Angular o el repositorio.
 
-Consultar [instalación, migraciones y despliegue](docs/arquitectura.md#9-instalación-migraciones-y-despliegue): comprobar esquema existente, ejecutar SOLO un nuevo bloque autorizado, desplegar `confirmar-compra` y configurar CORS, Realtime y OAuth. El repositorio no modifica automáticamente la base remota.
+### Supabase existente
 
-En el proyecto existente las migraciones hasta **`20261015000300`** fueron verificadas en Dashboard: **no repetirlas**. El usuario confirmó baja lógica `20261016000200` y reseña única `20261016000300`. La inspección remota posterior encontró la tabla de reseña única, pero **no encontró `cine_estado_catalogo`**: revisar esa discrepancia antes de usar Eliminar/Restaurar, sin reaplicar bloques a ciegas. **No aplicar después el lector anterior `20261016000100`**: 003 ya incluye lectura propia. Estado detallado en [arquitectura](docs/arquitectura.md#9-instalación-migraciones-y-despliegue).
+Las migraciones de `supabase/migrations/` deben aplicarse en orden únicamente
+en un proyecto nuevo. En el proyecto remoto de esta entrega hay bloques
+aplicados manualmente y no se deben repetir ni ejecutar con `db push` a ciegas.
+Antes de modificarlo hay que inspeccionar el esquema, respaldar y aplicar solo
+un bloque autorizado. El detalle de compatibilidad y despliegue está en
+[`docs/arquitectura.md`](docs/arquitectura.md).
 
-**Web Push activado en Supabase:** SQL 001 ya instalado y verificado sin repetirlo, claves nuevas privadas, Edge, Vault y Cron cada minuto con HTTP 200. También se instaló una vez `20261017000200_cierre_eventos_publicos.sql`, cierre de permisos de escritura/TRUNCATE autorizado. [Procedimiento y estado](docs/arquitectura.md#94-activación-web-push--procedimiento-y-estado). **Falta consentir dispositivos y comprobar recepción real**; un lote vacío HTTP 200 no demuestra entrega. `npm run push:claves` no debe repetirse sobre claves activas.
-
-`confirmar-compra` fue redesplegada con el ajuste de ancho PDF y CORS del dominio público, sin regenerar comprobantes. Site URL y retornos Auth públicos se configuraron conservando retornos locales; OAuth y plantillas españolas siguen pendientes. No se crearon compras ni se consumieron QR para verificar esta publicación.
-
-## Publicación en Vercel
-
-`vercel.json` define Angular, salida `dist/sistema-cine/browser`, rutas SPA y revalidación de workers. `.vercelignore` excluye entorno privado, backend e IDE; solo URL/anon públicas son variables de build. Proyecto `cine-aurora` en el espacio Hobby autorizado; publicado por CLI, sin commit/push ni enlace automático a GitHub. Futuras publicaciones: `npx vercel deploy --prod --scope plazitas`, con la cuenta correcta autenticada. No subir `.env.push.local`, tokens ni `service_role` al frontend.
-
-En proyecto nuevo las migraciones son ordenadas por nombre (incluido afiches); el esquema inicial es reconstruido y no prueba compatibilidad con un servidor ya existente. No usar `db push` indiscriminadamente después de pegados manuales en SQL Editor.
-
-## Rutas principales
-
-- Público: `/`, `/peliculas`, `/proximamente`, `/peliculas/:id`, `/compra/**`.
-- Cuenta activa: `/perfil/**`.
-- Administrador: catálogo, salas/funciones, programación por rango, ofertas, auditoría, usuarios/roles y `/admin/reportes/{ventas,peliculas,candy}`.
-- Empleado: `/empleados/entrada`, `/empleados/candy` (mismo QR, prestación distinta).
-- Login: `/auth/login`, registro, recuperación, callback OAuth.
-
-El rol/estado vienen de `perfiles`, jamás de metadata del navegador. Compra registrada pertenece al usuario verificado; invitado conserva un enlace secreto. No publicar enlaces, QR ni tokens en analítica/capturas.
-
-## Pruebas y build
+## 7. Pruebas y comandos útiles
 
 ```powershell
 npm test -- --watch=false
+npm run build
 npm run verify:documento
+npm run verify:admin
+npm run verify:integridad
 npm run verify:experiencia
 npm run verify:catalogo
 npm run verify:resena-unica
- npm run verify:push
- npm run verify:push-worker
-npm run verify:publicacion
+npm run verify:push
+npm run verify:push-worker
 npm run verify:cache
 npm run verify:estructura
-npm run build
+npm run verify:publicacion
 ```
 
-`verify:documento` usa PostgreSQL local PGlite, no conecta a Supabase. Pruebas del bloque anterior: `npm run verify:db` y `npm run verify:db -- --columnas-existentes` (solo esquema previo, no comportamiento actual completo).
+Los verificadores ejecutan regresiones locales de cliente, SQL/PGlite,
+administración, documento, PWA, publicación y Web Push. No sustituyen pruebas
+de concurrencia real, recepción Push en un dispositivo ni una auditoría del
+proyecto Supabase remoto. Las Edge Functions se pueden comprobar con
+`deno check` y `deno test` en `supabase/functions/`.
 
-Edge (Deno, o `npx --yes deno`; backend/HTTP simulados en tests):
+## 8. Estado conocido de la entrega
 
-```powershell
-npx --yes deno check --no-config --no-lock --node-modules-dir=none supabase/functions/confirmar-compra/index.ts
-npx --yes deno test --allow-env --no-config --no-lock --node-modules-dir=none supabase/functions/confirmar-compra/handler_test.ts supabase/functions/confirmar-compra/handler_adversarial_test.ts
- npx --yes deno check --no-config --no-lock --node-modules-dir=none supabase/functions/enviar-push/index.ts
- npx --yes deno test --allow-env --no-config --no-lock --node-modules-dir=none supabase/functions/enviar-push/handler_test.ts supabase/functions/enviar-push/transport_test.ts
-```
+Los flujos centrales, el backoffice y las pruebas locales están implementados.
+La demo está publicada y `confirmar-compra` está desplegada. Aun así, no se
+debe presentar el sistema como certificado al 100%:
 
-Salida de producción: `dist/sistema-cine/browser`. Hosting estático con rewrite a `index.html`, variables públicas y HTTPS. PWA/SWR solo se prueba en producción, no `ng serve`.
+- OAuth Google/GitHub tiene código y rutas, pero requiere credenciales y
+  configuración del proveedor en Supabase.
+- Web Push tiene migración, Edge, Cron y worker; falta comprobar consentimiento
+  y recepción real en un dispositivo.
+- La baja lógica del catálogo requiere revisar una discrepancia del esquema
+  remoto antes de usarla en producción.
+- Las pruebas locales no representan varias conexiones concurrentes reales.
+- Las plantillas de correo de Auth y algunos procedimientos operativos requieren
+  configuración manual.
 
-## Documentación
+## 9. Documentación complementaria
 
-- [Arquitectura documentada](docs/arquitectura.md): capas, rutas, contratos, DER, seguridad, PWA, despliegue y pruebas.
-- [Decisiones técnicas documentadas](docs/decisiones-tecnicas.md): contexto, alternativas, consecuencias y propuestas pendientes.
-- [Documento de requerimientos](docs/requerimientos.md): 85 RF, 14 RNF, prioridades, trazabilidad, casos de uso y aceptación.
-- [Reglas del negocio](docs/reglas-negocio.md): 17 RN, precios, plazos, ejemplos, historial y decisiones operativas.
+- [`docs/arquitectura.md`](docs/arquitectura.md): capas, contratos, datos,
+  seguridad, PWA, migraciones, despliegue y pruebas.
+- [`docs/requerimientos.md`](docs/requerimientos.md): alcance original,
+  requerimientos funcionales/no funcionales y trazabilidad.
+- [`docs/reglas-negocio.md`](docs/reglas-negocio.md): reglas, tarifas,
+  beneficios, cancelaciones, QR y reportes.
+- [`docs/decisiones-tecnicas.md`](docs/decisiones-tecnicas.md): decisiones,
+  alternativas y pendientes de diseño.
 
-`docs/` contiene solo esos cuatro archivos. La documentación anterior y su copia Word se respaldaron fuera del repositorio antes de retirarlos. **No se afirma cumplimiento integral de los 85 RF**: recepción Web Push, OAuth, discrepancia del catálogo, aceptación docente del plano+mantenimiento/QR privado y varias verificaciones reales siguen pendientes.
+Este README es la explicación ejecutiva para comprender y ejecutar el
+proyecto; `docs/` conserva la especificación y la evidencia técnica detallada.
