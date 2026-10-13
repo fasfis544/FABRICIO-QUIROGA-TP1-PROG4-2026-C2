@@ -160,23 +160,8 @@ de concurrencia real, recepción Push en un dispositivo ni una auditoría del
 proyecto Supabase remoto. Las Edge Functions se pueden comprobar con
 `deno check` y `deno test` en `supabase/functions/`.
 
-## 8. Estado conocido de la entrega
 
-Los flujos centrales, el backoffice y las pruebas locales están implementados.
-La demo está publicada y `confirmar-compra` está desplegada. Aun así, no se
-debe presentar el sistema como certificado al 100%:
-
-- OAuth Google/GitHub tiene código y rutas, pero requiere credenciales y
-  configuración del proveedor en Supabase.
-- Web Push tiene migración, Edge, Cron y worker; falta comprobar consentimiento
-  y recepción real en un dispositivo.
-- La baja lógica del catálogo requiere revisar una discrepancia del esquema
-  remoto antes de usarla en producción.
-- Las pruebas locales no representan varias conexiones concurrentes reales.
-- Las plantillas de correo de Auth y algunos procedimientos operativos requieren
-  configuración manual.
-
-## 9. Documentación complementaria
+## 8. Documentación complementaria
 
 - [`docs/arquitectura.md`](docs/arquitectura.md): capas, contratos, datos,
   seguridad, PWA, migraciones, despliegue y pruebas.
