@@ -1,5 +1,6 @@
 ## Cine Aurora — Sistema de cine
-![Uploading image.png…]()
+![Uploading Captura de pantalla 2026-10-07 182625.png…]()
+
 
 Aplicación web progresiva para administrar un cine de varias salas y permitir la
 compra **simulada** de entradas y productos de candy. El proyecto está pensado
