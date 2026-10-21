@@ -1,5 +1,6 @@
 /**
- * Anotacion de responsabilidad: Servicio Angular de Auth; concentra la responsabilidad de este modulo dentro de app/core/auth. Incluye principalmente: AuthService, revision, perfil, code.
+ * coordina Supabase Auth con el perfil de la aplicación. 
+ * Lo más importante es evitar que consultas lentas restauren datos de una sesión que ya cambió.
  */
 import { computed, DestroyRef, inject, Service, signal } from '@angular/core';
 import { SupabaseService } from '../supabase/supabase.service';

@@ -1,5 +1,5 @@
 /**
- * Anotacion de responsabilidad: Guard de navegacion de Auth.Guard; concentra la responsabilidad de este modulo dentro de app/core/guards. Incluye principalmente: authGuard, sesion.
+ * authGuard protege rutas: inyecta los servicios de autenticación, sesión y router, y espera a que se actualice el perfil.
  */
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';

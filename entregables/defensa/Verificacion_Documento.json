@@ -1,0 +1,1051 @@
+{
+    "revision":  "2026-10-12",
+    "format":  "guia-central",
+    "source":  "Sistema_de_Cine_Documento_de_Requerimientos_v2.1 (3) (1) (2).docx",
+    "files":  [
+                  {
+                      "file":  "src/app/app.config.ts",
+                      "lines":  21,
+                      "sha256":  "9e891771fc9b691eb595803715a259ec2b7e4f483b284df4617d890fcbf9e6c5"
+                  },
+                  {
+                      "file":  "src/app/app.html",
+                      "lines":  78,
+                      "sha256":  "b33fb9d0816fb2a93368b9faea8b7102d48426b5b5908fd37a6b18471997ed42"
+                  },
+                  {
+                      "file":  "src/app/app.routes.ts",
+                      "lines":  18,
+                      "sha256":  "3090f19d7283315ff4c6bedefc7d965a917ae7f8851dabe7d3dcca9df2e53aea"
+                  },
+                  {
+                      "file":  "src/app/app.scss",
+                      "lines":  236,
+                      "sha256":  "3485e82dee7751fad88e46435b917a715f878ecb7e5b3fcc9d4f8d8d4067b859"
+                  },
+                  {
+                      "file":  "src/app/app.spec.ts",
+                      "lines":  50,
+                      "sha256":  "4aca8fa73a0d9bbe9ed86c93dce70bb2b263b9e9f5aa02f81c81637591169416"
+                  },
+                  {
+                      "file":  "src/app/app.ts",
+                      "lines":  53,
+                      "sha256":  "53668a6c998b0ff32bf14553c943eacc06699023536efe712174ed7326104aef"
+                  },
+                  {
+                      "file":  "src/app/core/auth/auth.service.spec.ts",
+                      "lines":  239,
+                      "sha256":  "e35da92081c49bf60ae9bc4fdbdf5ae080db52f7b35092814db89eda5a21c467"
+                  },
+                  {
+                      "file":  "src/app/core/auth/auth.service.ts",
+                      "lines":  169,
+                      "sha256":  "86c5a9278d16a2bac98b7301d0ba9966cfe46ab26cd08721cb2ed11e354e287f"
+                  },
+                  {
+                      "file":  "src/app/core/auth/cuenta.service.spec.ts",
+                      "lines":  193,
+                      "sha256":  "89f11559eb8f99b4308a256d5a5f38fc769f76bcc8463937f51fb69f5968898e"
+                  },
+                  {
+                      "file":  "src/app/core/auth/cuenta.service.ts",
+                      "lines":  223,
+                      "sha256":  "dc13143cd804da372e20725bd93c427a9b9af47a5e3f9a8bd4e77ef17784002c"
+                  },
+                  {
+                      "file":  "src/app/core/auth/rol.model.spec.ts",
+                      "lines":  29,
+                      "sha256":  "adfa120bb017758cf1a904c5690539bdd951958f807f378d337d8bd6e56b04b7"
+                  },
+                  {
+                      "file":  "src/app/core/auth/rol.model.ts",
+                      "lines":  35,
+                      "sha256":  "3c5bee73c416215a5a33ef623de3d5fbc65b2d0e1a7fab87d173866878bbd416"
+                  },
+                  {
+                      "file":  "src/app/core/auth/sesion.service.ts",
+                      "lines":  38,
+                      "sha256":  "5d730b9b279152320a5fabcd41b195d5969d7dbbbb7f590131f300780d7569a7"
+                  },
+                  {
+                      "file":  "src/app/core/dia-cine.service.spec.ts",
+                      "lines":  38,
+                      "sha256":  "5d7a822d9965fcf102fc08382cb559b9eb56f24893d4dafb85cd1b103ebe0412"
+                  },
+                  {
+                      "file":  "src/app/core/dia-cine.service.ts",
+                      "lines":  28,
+                      "sha256":  "476e0903b2ec1b59b84db238d6c70f8ef143bce9c7507922d7975829ae9538a2"
+                  },
+                  {
+                      "file":  "src/app/core/guards/auth.guard.ts",
+                      "lines":  18,
+                      "sha256":  "ddae0c4d029db942f37f7458906db870ac65bae0e9af0daf9c588891ddf01da5"
+                  },
+                  {
+                      "file":  "src/app/core/guards/guards.spec.ts",
+                      "lines":  45,
+                      "sha256":  "c4497bd9f51681f67374d95cf510558376ff4ae1ed9ed08233ebbba0161d5940"
+                  },
+                  {
+                      "file":  "src/app/core/guards/rol.guard.ts",
+                      "lines":  24,
+                      "sha256":  "031e03e16403c1e5496c93feadf13733ee5d44b7fb5628261a08c5eeb0ae6232"
+                  },
+                  {
+                      "file":  "src/app/core/notificaciones/web-push.service.spec.ts",
+                      "lines":  350,
+                      "sha256":  "601a8c19f278773eeaa3a5da338eaf20e9a1510bc1d655be0a058850fc4c1ee9"
+                  },
+                  {
+                      "file":  "src/app/core/notificaciones/web-push.service.ts",
+                      "lines":  307,
+                      "sha256":  "e336b0455c1267085a97fccb922c9d1f1672281ccf8b2d002d07d6ff56f18ab4"
+                  },
+                  {
+                      "file":  "src/app/core/red.service.ts",
+                      "lines":  19,
+                      "sha256":  "0a3074eb4b35040fd15c816474c6646cfdcd93a7a42ad01bf9523dae8931be3f"
+                  },
+                  {
+                      "file":  "src/app/core/routing/ruta-identidad.strategy.spec.ts",
+                      "lines":  39,
+                      "sha256":  "452df6a285fb02be77410584eb32b716e94ce7a585b8ddc5135a66bd0d6e0194"
+                  },
+                  {
+                      "file":  "src/app/core/routing/ruta-identidad.strategy.ts",
+                      "lines":  22,
+                      "sha256":  "d02ec43930656376ccabde96249e41bdd82aa498d031f5151f7de87e2cac71d0"
+                  },
+                  {
+                      "file":  "src/app/core/supabase/supabase.service.ts",
+                      "lines":  31,
+                      "sha256":  "2fbf4f8887c34b9c9854a2039f0525e3e09671a68b4d0d4d3a4509a774567f95"
+                  },
+                  {
+                      "file":  "src/app/data-access/cine/administracion.service.ts",
+                      "lines":  122,
+                      "sha256":  "6cefb07f59a1b3145bf7232623efa77eae0467cd865b7d795f74913e2447e32e"
+                  },
+                  {
+                      "file":  "src/app/data-access/cine/checkout.service.ts",
+                      "lines":  155,
+                      "sha256":  "0bd92be5e2a0597340dc8bb1c4ab5c530f28c8e7dd6742da255bd4f533c9779b"
+                  },
+                  {
+                      "file":  "src/app/data-access/cine/errores-admin.ts",
+                      "lines":  15,
+                      "sha256":  "9bb6db7dac77b7fd84242b3ee73b1ea5c50be99db0222231d26ade7d70d1c279"
+                  },
+                  {
+                      "file":  "src/app/data-access/cine/estado-catalogo.ts",
+                      "lines":  39,
+                      "sha256":  "217b02848c84c493610dce79addbf0c030ed039cda171656886871d45b594c71"
+                  },
+                  {
+                      "file":  "src/app/data-access/cine/imagenes-productos.service.spec.ts",
+                      "lines":  88,
+                      "sha256":  "e6472cba1c66528752039f8df584b0713beadb4a9f23b4fb91fcb8c7035c08e7"
+                  },
+                  {
+                      "file":  "src/app/data-access/cine/imagenes-productos.service.ts",
+                      "lines":  53,
+                      "sha256":  "7c9b212d47347b18db240f02ad6fe39d08bef7c43078232f351ba86ef65f707b"
+                  },
+                  {
+                      "file":  "src/app/data-access/cine/ofertas-admin.service.ts",
+                      "lines":  61,
+                      "sha256":  "c7a07178bbbbf3415befa55a3768612db194b096715a452a49c391ea2852ff80"
+                  },
+                  {
+                      "file":  "src/app/data-access/cine/operaciones.service.spec.ts",
+                      "lines":  188,
+                      "sha256":  "c98e3393f54e2ba00a52b6ae0d6c9c8d361722d5f36965012b96906b067de469"
+                  },
+                  {
+                      "file":  "src/app/data-access/cine/operaciones.service.ts",
+                      "lines":  304,
+                      "sha256":  "ef77905be36d6a7a6499391b128024c7945477b39862d36921a3ea62ee1acfb4"
+                  },
+                  {
+                      "file":  "src/app/data-access/cine/validacion-admin.spec.ts",
+                      "lines":  45,
+                      "sha256":  "74c6eae24e835846bf113ecf625dabb77571da59421dcd6a7c3ab4b09e1ed520"
+                  },
+                  {
+                      "file":  "src/app/data-access/cine/validacion-admin.ts",
+                      "lines":  57,
+                      "sha256":  "bce8fef6950b26d3e9ef47a690d904bebc7dac581e28bfa8d35edbedfbea18d2"
+                  },
+                  {
+                      "file":  "src/app/data-access/cine/validacion.spec.ts",
+                      "lines":  20,
+                      "sha256":  "c3598f8ba35e8f84482a1636a6db1e407b50202178eb65960fe25d40b6d0fed7"
+                  },
+                  {
+                      "file":  "src/app/data-access/cine/validacion.ts",
+                      "lines":  27,
+                      "sha256":  "d1414c44cf2ec0615ebc7949fb14a243e78e2a06aa4a5684805238125da4c4eb"
+                  },
+                  {
+                      "file":  "src/app/data-access/peliculas/afiches.service.spec.ts",
+                      "lines":  71,
+                      "sha256":  "5355854c18d2a7384373d80d8384cea0440483c9e120c11a16c881fd9e6e5d67"
+                  },
+                  {
+                      "file":  "src/app/data-access/peliculas/afiches.service.ts",
+                      "lines":  47,
+                      "sha256":  "f788b92388e9d38b46c2521208f144f4240d7423a87ebbabdaeb44b9564e06b6"
+                  },
+                  {
+                      "file":  "src/app/data-access/peliculas/filtros-modalidad.spec.ts",
+                      "lines":  42,
+                      "sha256":  "013c14aea3e546b14369dc1e4594ddda21444f4f865c50d55dc82710e47f5750"
+                  },
+                  {
+                      "file":  "src/app/data-access/peliculas/filtros-modalidad.ts",
+                      "lines":  18,
+                      "sha256":  "a2e22ab0f6617d0aed0322b33408f02b643d3c7a46c8e261eb67e2e56992cb3a"
+                  },
+                  {
+                      "file":  "src/app/data-access/peliculas/pelicula.model.ts",
+                      "lines":  23,
+                      "sha256":  "4dc6fc96e729fae10a2b0adbc7488aef8efc41ca73ede0b1b0f3e78071c85cbd"
+                  },
+                  {
+                      "file":  "src/app/data-access/peliculas/peliculas.service.ts",
+                      "lines":  114,
+                      "sha256":  "b6243dfb073410b11d66e00f8b9d639b7b1bc09c9142839b72e78d9c304e5cb1"
+                  },
+                  {
+                      "file":  "src/app/data-access/perfiles/beneficios.service.ts",
+                      "lines":  207,
+                      "sha256":  "146cd4e3b0662351488d56af3d2be5e0916b4df90887f84c560c230c6ebebb97"
+                  },
+                  {
+                      "file":  "src/app/data-access/perfiles/cliente.service.spec.ts",
+                      "lines":  117,
+                      "sha256":  "cbc0a7b898c2af05b36357e5695927592c22d856ad5c18029b6c4fd898a97226"
+                  },
+                  {
+                      "file":  "src/app/data-access/perfiles/cliente.service.ts",
+                      "lines":  131,
+                      "sha256":  "4251cae505edee2c0506b28289d29d224492ba931669ff120f8c0195c66af53d"
+                  },
+                  {
+                      "file":  "src/app/data-access/perfiles/perfil.model.ts",
+                      "lines":  26,
+                      "sha256":  "67fde6af35a70f9b22395805183bdc8aef3382645002bf93c700034a5f445909"
+                  },
+                  {
+                      "file":  "src/app/data-access/perfiles/perfiles.service.spec.ts",
+                      "lines":  59,
+                      "sha256":  "271fb793170c4c1573b8f4ce1d170b7e39e6ba27a64aa622265abad7a9a26a8e"
+                  },
+                  {
+                      "file":  "src/app/data-access/perfiles/perfiles.service.ts",
+                      "lines":  59,
+                      "sha256":  "b456e84732ae6fb8334f92dc84794f03c376fd34a219e712aeaf0e120d8d2a74"
+                  },
+                  {
+                      "file":  "src/app/features/admin/admin-layout.component.html",
+                      "lines":  55,
+                      "sha256":  "480a6208a9a792291e0a61ea9533e7c2d989b95907ff0af9518b89884df1f128"
+                  },
+                  {
+                      "file":  "src/app/features/admin/admin-layout.component.scss",
+                      "lines":  134,
+                      "sha256":  "10a0e208e871a0815fd9b43e879d68c3033c9fa2c187827e0ef7407790c38b7c"
+                  },
+                  {
+                      "file":  "src/app/features/admin/admin-layout.component.ts",
+                      "lines":  40,
+                      "sha256":  "9461c396eb7e03ee44ca06ad93b607f4653c081e206fb887c442b45a41403d30"
+                  },
+                  {
+                      "file":  "src/app/features/admin/admin-navigation.ts",
+                      "lines":  118,
+                      "sha256":  "40df0b40e6cde4bd1c720feda9ecfc652ab6386d2ea6b2ffd7dd6451a0831565"
+                  },
+                  {
+                      "file":  "src/app/features/admin/admin-vistas.spec.ts",
+                      "lines":  66,
+                      "sha256":  "7b9acbd7d0b65dd2bf47b01e379392a9684194d8819f09c2ff4ddb81f5593ccc"
+                  },
+                  {
+                      "file":  "src/app/features/admin/admin.routes.ts",
+                      "lines":  125,
+                      "sha256":  "e5bcd876af95979a016ae46f636469703ea22d9b4ee3bb55e038775e4f1876fd"
+                  },
+                  {
+                      "file":  "src/app/features/admin/administracion.component.spec.ts",
+                      "lines":  247,
+                      "sha256":  "ab9a546ea7f90fdc580e33ef0dcc6f5e9398eee3449c7b70ea2fd5887e164aca"
+                  },
+                  {
+                      "file":  "src/app/features/admin/auditoria.component.ts",
+                      "lines":  118,
+                      "sha256":  "ec9c56d6a20d8c3730ddf5683e97b58759afb1656d55379d427871bf420af13e"
+                  },
+                  {
+                      "file":  "src/app/features/admin/dashboard/dashboard.component.html",
+                      "lines":  3,
+                      "sha256":  "19db05de3bf371dc7f716f57d71b4c8f4b6abcd9cdc5ae65b27cff131aecc660"
+                  },
+                  {
+                      "file":  "src/app/features/admin/dashboard/dashboard.component.scss",
+                      "lines":  2,
+                      "sha256":  "a9635eebe7155e80f9a19841ed1e95219223eae71de0d3501a1975b31eabcf61"
+                  },
+                  {
+                      "file":  "src/app/features/admin/dashboard/dashboard.component.spec.ts",
+                      "lines":  37,
+                      "sha256":  "d7af175c428792d27106431441a10f2ea5e49ab68f771c64000f051fa128a65d"
+                  },
+                  {
+                      "file":  "src/app/features/admin/dashboard/dashboard.component.ts",
+                      "lines":  15,
+                      "sha256":  "675279ccb3e1f3724d92e99e8f5700c072fe8c8e44e3c6365fde04b4804fcbc8"
+                  },
+                  {
+                      "file":  "src/app/features/admin/dashboard/panel-filtros.spec.ts",
+                      "lines":  35,
+                      "sha256":  "1cf6eae76e99dfc58589c36cfde4c07ae8bf242395ce0023551ad58eb96cd988"
+                  },
+                  {
+                      "file":  "src/app/features/admin/dashboard/panel.scss",
+                      "lines":  157,
+                      "sha256":  "22fa17def7219da1e5d791e04696d40d91d22218d284a1c43241d0e9bec72f18"
+                  },
+                  {
+                      "file":  "src/app/features/admin/dashboard/resumen-admin.component.spec.ts",
+                      "lines":  64,
+                      "sha256":  "a8af69a4b31f2f199a8056cadd2fa5fa20ab9dff2708e34a99173cef0ab0ae6a"
+                  },
+                  {
+                      "file":  "src/app/features/admin/dashboard/resumen-admin.component.ts",
+                      "lines":  147,
+                      "sha256":  "fad4b88497638ec5dd6d11fb44e49fe002fdbc82f6a88386f619a8dc0ac7494d"
+                  },
+                  {
+                      "file":  "src/app/features/admin/funcion-admin.component.ts",
+                      "lines":  197,
+                      "sha256":  "4faf56ace418c0120e50ffb3ecfe76478228cfa58c336905d88c222062ea8b19"
+                  },
+                  {
+                      "file":  "src/app/features/admin/generos.component.ts",
+                      "lines":  168,
+                      "sha256":  "8f8e7123477078521fd8d7f3f0bba936e4acfd7e556398f018cf57e2848accb7"
+                  },
+                  {
+                      "file":  "src/app/features/admin/integridad-programacion.spec.ts",
+                      "lines":  170,
+                      "sha256":  "8afb3c9809cd084f77810984e94e63a6990f4f439f54a70cea820bc36dbeecbe"
+                  },
+                  {
+                      "file":  "src/app/features/admin/ofertas-inicio.component.ts",
+                      "lines":  11,
+                      "sha256":  "8d569ec66d1297b3f7bfeb7e64aaef43f499cf95d1c4a5bc12a7b71d6fbde7c7"
+                  },
+                  {
+                      "file":  "src/app/features/admin/ofertas.component.html",
+                      "lines":  261,
+                      "sha256":  "1bd6dfb44b4fe1390082a3fc5d6ebdad61b406f15787724ccfb0c127ec1743fb"
+                  },
+                  {
+                      "file":  "src/app/features/admin/ofertas.component.spec.ts",
+                      "lines":  172,
+                      "sha256":  "09048b042543b1801c679d51ca1e493d01fd211f748cc14b0550316bfa8fe00b"
+                  },
+                  {
+                      "file":  "src/app/features/admin/ofertas.component.ts",
+                      "lines":  410,
+                      "sha256":  "b1d248de2ac4679cef18618fb89ef06df2d2db760f8308374db0b6a0e54503ca"
+                  },
+                  {
+                      "file":  "src/app/features/admin/programacion-rango.component.ts",
+                      "lines":  185,
+                      "sha256":  "ef7a45530c1f5f46311115497ba517d6ce5e7700a0928d5611c1d39e49842ebf"
+                  },
+                  {
+                      "file":  "src/app/features/admin/reportes.component.spec.ts",
+                      "lines":  70,
+                      "sha256":  "4cf8004dc0d8f19d8df667aeab903f6067e1c4f72a9314d9443cb38bfe0bddd3"
+                  },
+                  {
+                      "file":  "src/app/features/admin/reportes.component.ts",
+                      "lines":  301,
+                      "sha256":  "e3dca6692dd2dc6fd2b40d68d38b3a779a83265558d0e50f1ccae16122b816a0"
+                  },
+                  {
+                      "file":  "src/app/features/admin/salas/editor-butacas/editor-butacas.component.html",
+                      "lines":  133,
+                      "sha256":  "f31d50797676f58a2a68d8d7a4c395867a7f9c82eccee80f78e66efdfa4c0f17"
+                  },
+                  {
+                      "file":  "src/app/features/admin/salas/editor-butacas/editor-butacas.component.scss",
+                      "lines":  16,
+                      "sha256":  "308a55723a8da59b1db5340a7980f9b7ec6d9350fa2ba8cf24fa8b9d55e16338"
+                  },
+                  {
+                      "file":  "src/app/features/admin/salas/editor-butacas/editor-butacas.component.spec.ts",
+                      "lines":  157,
+                      "sha256":  "efe112b65169a37122812ca13e92e7d57a6228506ff0e4a1aa8d4d793c8596af"
+                  },
+                  {
+                      "file":  "src/app/features/admin/salas/editor-butacas/editor-butacas.component.ts",
+                      "lines":  152,
+                      "sha256":  "9c6f3e0c94cd651b6c0069c1e2f649b487c9a01bafd226a5f3acc060960b50cd"
+                  },
+                  {
+                      "file":  "src/app/features/admin/usuarios.component.ts",
+                      "lines":  170,
+                      "sha256":  "d718b5fd75af1cbb2c7425b504f44a160f4498c33ccf44879d6498da1cbbaa7b"
+                  },
+                  {
+                      "file":  "src/app/features/auth/_auth-form.scss",
+                      "lines":  11,
+                      "sha256":  "7583d99654a2282c08481c3c8ad643d6349fc9e7458314e6e605073d101aaa3a"
+                  },
+                  {
+                      "file":  "src/app/features/auth/auth.routes.ts",
+                      "lines":  38,
+                      "sha256":  "9342c152179b2da7fac9c4aebda963fe9d9e68fb156a149775e5967d92dd92f0"
+                  },
+                  {
+                      "file":  "src/app/features/auth/confirmacion-email/confirmacion-email.component.html",
+                      "lines":  19,
+                      "sha256":  "f20405c2749ea0413c7df3d8063ba2636e05bbdb7c39ec90a963b05e1fa838f8"
+                  },
+                  {
+                      "file":  "src/app/features/auth/confirmacion-email/confirmacion-email.component.scss",
+                      "lines":  3,
+                      "sha256":  "a34f9c64ec389dee55776212046a5f293ac34fcff3c235deba4506a99480fd32"
+                  },
+                  {
+                      "file":  "src/app/features/auth/confirmacion-email/confirmacion-email.component.ts",
+                      "lines":  55,
+                      "sha256":  "5dc167bdeb3b03b4d3bba562e425ee8855756b7f4ad17a0e97a2e25a5692ec4e"
+                  },
+                  {
+                      "file":  "src/app/features/auth/login/login.component.html",
+                      "lines":  98,
+                      "sha256":  "438a7a52465c0cf3366418e4be783063e03e82626c44a2f80fc0459fa00f9635"
+                  },
+                  {
+                      "file":  "src/app/features/auth/login/login.component.scss",
+                      "lines":  247,
+                      "sha256":  "0e41e734d5822fcfc4c492fa3b13bb3d377b6825cfcbf77d14f2fddb1e07e94c"
+                  },
+                  {
+                      "file":  "src/app/features/auth/login/login.component.ts",
+                      "lines":  88,
+                      "sha256":  "0a16b72a49310d6dc6ceef4548a94abbc3b6b028edeb0e3681221a8cce70c72b"
+                  },
+                  {
+                      "file":  "src/app/features/auth/oauth.component.ts",
+                      "lines":  34,
+                      "sha256":  "5cf0b96912328e426c7276a493d1f4b9c97a685f7e6021668efa92a5d8a5574a"
+                  },
+                  {
+                      "file":  "src/app/features/auth/recuperar-password/recuperar-password.component.html",
+                      "lines":  16,
+                      "sha256":  "d643fd675a730b71fd7704fb5386421f3de891011568ff00ec7b3837739c4be0"
+                  },
+                  {
+                      "file":  "src/app/features/auth/recuperar-password/recuperar-password.component.scss",
+                      "lines":  3,
+                      "sha256":  "3629be81c73efd709d078997d34440f4f749fd2cd08243a9299d9dfeee76778a"
+                  },
+                  {
+                      "file":  "src/app/features/auth/recuperar-password/recuperar-password.component.ts",
+                      "lines":  41,
+                      "sha256":  "06262433c5c0333da0dd5f9d89d58360f6aae400800c1d30e4eb2717afc1aced"
+                  },
+                  {
+                      "file":  "src/app/features/auth/registro/registro.component.html",
+                      "lines":  88,
+                      "sha256":  "9f8987dd6e1e54f76b17cdbe9a1982b239f04eaa9c32a47979f30804bacebcc3"
+                  },
+                  {
+                      "file":  "src/app/features/auth/registro/registro.component.scss",
+                      "lines":  12,
+                      "sha256":  "ea58617baad74ca41c7eca9f7f193b15c09bab6df5b2483e89c4e81852c6a160"
+                  },
+                  {
+                      "file":  "src/app/features/auth/registro/registro.component.ts",
+                      "lines":  123,
+                      "sha256":  "2d1dc8c5162319d24d0db79785c73961ef047511157f9851b8be9df1c604a0a4"
+                  },
+                  {
+                      "file":  "src/app/features/auth/restablecer-password/restablecer-password.component.html",
+                      "lines":  23,
+                      "sha256":  "cb0360582e323729b78ba7b893697e377abbfca4bbfddc38a2ab64a4479b39a3"
+                  },
+                  {
+                      "file":  "src/app/features/auth/restablecer-password/restablecer-password.component.scss",
+                      "lines":  3,
+                      "sha256":  "99dbdf2db36141653f1c785a1fa10b85b51881e95fd899f2e4ab1a9368dc7f70"
+                  },
+                  {
+                      "file":  "src/app/features/auth/restablecer-password/restablecer-password.component.ts",
+                      "lines":  57,
+                      "sha256":  "4de8652ed95e9230c0d88916d3271e9cabe74b4625cb7ae6bfc186ac0cd78ed9"
+                  },
+                  {
+                      "file":  "src/app/features/auth/ui/auth-frame.scss",
+                      "lines":  11,
+                      "sha256":  "8ccc5f791a665fc1490a8a3f96405fbd51a13e990debbd4e5846631578879bf1"
+                  },
+                  {
+                      "file":  "src/app/features/auth/ui/auth-frame.ts",
+                      "lines":  25,
+                      "sha256":  "c310494b37c52a84112a5050c7bf4864e3b348721a0948baf8449f5a6463e922"
+                  },
+                  {
+                      "file":  "src/app/features/auth/ui/campo-auth.scss",
+                      "lines":  10,
+                      "sha256":  "0d3b562d4c344c8d657dbccca3f084943f673b8353402219f5a0cebe9644e736"
+                  },
+                  {
+                      "file":  "src/app/features/auth/ui/campo-auth.ts",
+                      "lines":  36,
+                      "sha256":  "b58ce49aa1e24d406a51b4371396f39b93abc68a3147ff6e3284214dfea6a996"
+                  },
+                  {
+                      "file":  "src/app/features/cartelera/cartelera.routes.ts",
+                      "lines":  12,
+                      "sha256":  "dca7186280f68b350999a6fc6b1d5dddd243f68ad04e795d7aa451d76ff7070a"
+                  },
+                  {
+                      "file":  "src/app/features/cartelera/inicio/inicio.component.html",
+                      "lines":  119,
+                      "sha256":  "82732bf13c3e656e9bcd9d1ee337b3cffedbf8467105ef22d8d7aa603ca8946c"
+                  },
+                  {
+                      "file":  "src/app/features/cartelera/inicio/inicio.component.scss",
+                      "lines":  424,
+                      "sha256":  "a5a9711cacc3e43b1af32aa0f783cf58bb4c1daca613611b8a19d8ad34d904f4"
+                  },
+                  {
+                      "file":  "src/app/features/cartelera/inicio/inicio.component.spec.ts",
+                      "lines":  174,
+                      "sha256":  "faab2dd74437d83e91e3f0c0e52a86e7ae9efd21f514f693f03e121fb4f1c5f4"
+                  },
+                  {
+                      "file":  "src/app/features/cartelera/inicio/inicio.component.ts",
+                      "lines":  69,
+                      "sha256":  "2c2184bc26460cf6d77777937460ff3a7e347118ac1a54f36e6e5b593c8a084a"
+                  },
+                  {
+                      "file":  "src/app/features/cartelera/inicio/ranking/ranking.component.html",
+                      "lines":  80,
+                      "sha256":  "6f8b653796dbc33d468937062c48e503d2a21f820af36b8376f95d27cadac637"
+                  },
+                  {
+                      "file":  "src/app/features/cartelera/inicio/ranking/ranking.component.scss",
+                      "lines":  303,
+                      "sha256":  "8830c7af0fa8dafc4619255de7617e6977051a2a4b6233efcaf513bb77d58916"
+                  },
+                  {
+                      "file":  "src/app/features/cartelera/inicio/ranking/ranking.component.ts",
+                      "lines":  33,
+                      "sha256":  "5a04498548cd527e50cfb38602aad722cdaed65df126a8159c0ba2bac991e6e1"
+                  },
+                  {
+                      "file":  "src/app/features/cine/admin-peliculas.component.spec.ts",
+                      "lines":  209,
+                      "sha256":  "988955721e0ef13beae01d360bc0a162aadc67cb7fe891bee781a2a2d731c853"
+                  },
+                  {
+                      "file":  "src/app/features/cine/admin-peliculas.component.ts",
+                      "lines":  480,
+                      "sha256":  "13dec51d3d4d6056febfc6b4cd086d6f379a9af4eb48d3e195b6c1086dabbad7"
+                  },
+                  {
+                      "file":  "src/app/features/cine/catalogo.component.spec.ts",
+                      "lines":  61,
+                      "sha256":  "b07c24a7da810d1b48042d4df60d05c5dd046b4543f2c5204ea4f690136bdabd"
+                  },
+                  {
+                      "file":  "src/app/features/cine/catalogo.component.ts",
+                      "lines":  179,
+                      "sha256":  "c971f8f7b5f2bd25fbed2f9ae9101d34705a97c1802e3764abc5ce5b04cd62fd"
+                  },
+                  {
+                      "file":  "src/app/features/cine/cine.scss",
+                      "lines":  211,
+                      "sha256":  "5a97578fcf3ab7bc25d31d1a4ccf5e3e071ef75a4dd687d8f360f110918d51d7"
+                  },
+                  {
+                      "file":  "src/app/features/cine/comprobante.component.spec.ts",
+                      "lines":  72,
+                      "sha256":  "2842a4fc00984dbe2f5b78670f39f92faad6ab17abcc0460e636e921e69fe6b7"
+                  },
+                  {
+                      "file":  "src/app/features/cine/comprobante.component.ts",
+                      "lines":  146,
+                      "sha256":  "86d09cccf0d8629359956f60940f49d21d830adec104de4c2ad618cd851c2989"
+                  },
+                  {
+                      "file":  "src/app/features/cine/detalle.component.spec.ts",
+                      "lines":  67,
+                      "sha256":  "c90fe6e025838b0771c04680b0a1b6d1be0bb7adddd1142d0a5c6d89fe665fd6"
+                  },
+                  {
+                      "file":  "src/app/features/cine/detalle.component.ts",
+                      "lines":  188,
+                      "sha256":  "67a908eeab65e84ba2b8632aff5c79966dbc4644f767d2d370629373e340d49f"
+                  },
+                  {
+                      "file":  "src/app/features/cine/entrada.component.spec.ts",
+                      "lines":  95,
+                      "sha256":  "78708b057542ba9a4e03be9f8a2aec7f3ab2ce3c6dc1b65242af5e62ec14cb85"
+                  },
+                  {
+                      "file":  "src/app/features/cine/entrada.component.ts",
+                      "lines":  121,
+                      "sha256":  "99ad3e53bc977c0c5d4b5991110b2d789476e1172780f948db207e5273f181e6"
+                  },
+                  {
+                      "file":  "src/app/features/cine/panel.component.ts",
+                      "lines":  88,
+                      "sha256":  "ca81c03a22a42dfcc3a7c3305a84eb9d8534023fd4ec56289bfb5364d7c21e1b"
+                  },
+                  {
+                      "file":  "src/app/features/cine/programacion.component.spec.ts",
+                      "lines":  134,
+                      "sha256":  "308aa2ea702b1a4e31ca161557965f4fe04909482a6301cfa1d2ea771892482b"
+                  },
+                  {
+                      "file":  "src/app/features/cine/programacion.component.ts",
+                      "lines":  461,
+                      "sha256":  "e9c3799efc72908729b7e52fee0e2aeae94b157d64c732157deaeae607b849a4"
+                  },
+                  {
+                      "file":  "src/app/features/cine/reserva.component.spec.ts",
+                      "lines":  156,
+                      "sha256":  "e711dcf1ba50987a8a979300ff1416f362ad124cadc2ca25cffeb1f335ac0ca2"
+                  },
+                  {
+                      "file":  "src/app/features/cine/reserva.component.ts",
+                      "lines":  286,
+                      "sha256":  "a4973537a13bb971bfff550d1f5aaa887488edd736287f022dce5e5964501a00"
+                  },
+                  {
+                      "file":  "src/app/features/compra/candy.component.spec.ts",
+                      "lines":  114,
+                      "sha256":  "4b98cac79c3d1a7c402c4417b548b66778a0677ecf0eb2af65faf6d81bb0ade9"
+                  },
+                  {
+                      "file":  "src/app/features/compra/candy.component.ts",
+                      "lines":  162,
+                      "sha256":  "5b0a18cbd13f13aff84a6bea7134818601ccd6dbb88b5bdeb450957721250f2a"
+                  },
+                  {
+                      "file":  "src/app/features/compra/checkout.component.html",
+                      "lines":  128,
+                      "sha256":  "946dc3e1c4675a75a951d7588d116db708041709dba16c40371072b2d44a737c"
+                  },
+                  {
+                      "file":  "src/app/features/compra/checkout.component.spec.ts",
+                      "lines":  243,
+                      "sha256":  "110f86d49cb98b2b5e05ff31ffe8d8e298b088162bc4e3c9308134d6f35b5e64"
+                  },
+                  {
+                      "file":  "src/app/features/compra/checkout.component.ts",
+                      "lines":  245,
+                      "sha256":  "190c007044ef31d6ac3e51b1f71e1b1a6958979ec537ddfd9e78067dafcf6973"
+                  },
+                  {
+                      "file":  "src/app/features/compra/compra.routes.ts",
+                      "lines":  25,
+                      "sha256":  "68093aee8fa827dcd9fad44630d3ba9a3ab85e4f6714c23c173adc167eeee1b0"
+                  },
+                  {
+                      "file":  "src/app/features/compra/services/carrito.service.ts",
+                      "lines":  23,
+                      "sha256":  "f0812738f0c0cf98712bd05655848171dc5e54f60fca0ee4083b934735f3432d"
+                  },
+                  {
+                      "file":  "src/app/features/empleados/empleados.routes.ts",
+                      "lines":  17,
+                      "sha256":  "cd0e482c16bb0d63944fa23409f5f1b5c1dfd3a3226d68611a375c2ce2fcfda3"
+                  },
+                  {
+                      "file":  "src/app/features/errores/errores.component.spec.ts",
+                      "lines":  47,
+                      "sha256":  "947da21a312610613cd1eaa45e43d21623d4db7e03060b9eeacbb1f6a4459c50"
+                  },
+                  {
+                      "file":  "src/app/features/errores/errores.routes.ts",
+                      "lines":  10,
+                      "sha256":  "84b1210200797f9fd41c447a03e9945c235bdaaac4e464e90c0d89086c172e8b"
+                  },
+                  {
+                      "file":  "src/app/features/errores/no-encontrado/no-encontrado.component.html",
+                      "lines":  12,
+                      "sha256":  "b920cb5ca1b1447173ab9c1f772c697d526eff7936e324c5cfae1b5e6583c16c"
+                  },
+                  {
+                      "file":  "src/app/features/errores/no-encontrado/no-encontrado.component.scss",
+                      "lines":  3,
+                      "sha256":  "e8143e01a463a2a1d3fb3771e7c41c85a58991d992b02da66bd9d7d7d56e1d33"
+                  },
+                  {
+                      "file":  "src/app/features/errores/no-encontrado/no-encontrado.component.ts",
+                      "lines":  19,
+                      "sha256":  "ccda78c4b8cca2854fa3085cb2a7df1b205435bce088e4acd331087b6bc1550f"
+                  },
+                  {
+                      "file":  "src/app/features/errores/sin-permiso/sin-permiso.component.html",
+                      "lines":  12,
+                      "sha256":  "c82eb0e603af8bed7e03cfa31e08f808b15a1a1eefd2746e268a9ba3a7b5820e"
+                  },
+                  {
+                      "file":  "src/app/features/errores/sin-permiso/sin-permiso.component.scss",
+                      "lines":  3,
+                      "sha256":  "d5ff5a08f9f040c883eda451ac6f8d39f6779ac4a194aec81ce973c764bb1ee8"
+                  },
+                  {
+                      "file":  "src/app/features/errores/sin-permiso/sin-permiso.component.ts",
+                      "lines":  19,
+                      "sha256":  "817bca352b72f0580268f8c3f934546a2b165162003fa9557d6350912c0b6aaf"
+                  },
+                  {
+                      "file":  "src/app/features/perfil/beneficios.component.html",
+                      "lines":  185,
+                      "sha256":  "c77ee1ba657248ad66d8c7a6c6586f36c98ec1d08c8cd3b9793f66b8761999c1"
+                  },
+                  {
+                      "file":  "src/app/features/perfil/beneficios.component.spec.ts",
+                      "lines":  134,
+                      "sha256":  "d2ecf02ef360bf3202711ced700feddc2bad90478817d3d0c330e63f345a38bb"
+                  },
+                  {
+                      "file":  "src/app/features/perfil/beneficios.component.ts",
+                      "lines":  140,
+                      "sha256":  "be30603e7c38540a60e557c27e2fa01aec677a406d36b066755fff865cb16c55"
+                  },
+                  {
+                      "file":  "src/app/features/perfil/detalle-reserva.component.spec.ts",
+                      "lines":  272,
+                      "sha256":  "d7cd985b0f339027cd71f19947e8b200cf23f7974bc1d1895013d9220344e0cd"
+                  },
+                  {
+                      "file":  "src/app/features/perfil/detalle-reserva.component.ts",
+                      "lines":  320,
+                      "sha256":  "e2809bc2be2eb3fca045521bafd1cf03beacea0f7bd180a2e553eda59feeef5e"
+                  },
+                  {
+                      "file":  "src/app/features/perfil/historial.component.ts",
+                      "lines":  106,
+                      "sha256":  "d1699e1e653b25774d74570ddb015c6a05262926e13fb0afca7fde5f824b46fc"
+                  },
+                  {
+                      "file":  "src/app/features/perfil/mi-perfil/mi-perfil.component.html",
+                      "lines":  202,
+                      "sha256":  "639a18660bb6f21d3011d83125fb2a30cfdc17803dcecf4c2c58b1bb66123484"
+                  },
+                  {
+                      "file":  "src/app/features/perfil/mi-perfil/mi-perfil.component.scss",
+                      "lines":  155,
+                      "sha256":  "a55e3945da586aad1aca6903e553a7d499efa1439fe7bb16c7c7bd9afa0e8fcc"
+                  },
+                  {
+                      "file":  "src/app/features/perfil/mi-perfil/mi-perfil.component.spec.ts",
+                      "lines":  97,
+                      "sha256":  "ca5aa30df8a51a03526841dc9dcecb7c357360e6407af1d63d7be6a21ab7b139"
+                  },
+                  {
+                      "file":  "src/app/features/perfil/mi-perfil/mi-perfil.component.ts",
+                      "lines":  147,
+                      "sha256":  "08e65eb1f402cba5bc44f2b4ff620c74a126e9b3141b1d0791e9a5c4f8035b60"
+                  },
+                  {
+                      "file":  "src/app/features/perfil/perfil.routes.ts",
+                      "lines":  31,
+                      "sha256":  "428f243648265c1e68847a0d67adbf56a271fa9e86c75b4ac6d2715c5fb68099"
+                  },
+                  {
+                      "file":  "src/app/features/perfil/preferencias-push.component.spec.ts",
+                      "lines":  96,
+                      "sha256":  "39caa81633390ee94adadf5013a0fa2e531285b43f64f594c4cec83dc03410e6"
+                  },
+                  {
+                      "file":  "src/app/features/perfil/preferencias-push.component.ts",
+                      "lines":  107,
+                      "sha256":  "6c4be864835812ca69a09593e81d49a43d995d0d612d15e9bb4773a32e131f8e"
+                  },
+                  {
+                      "file":  "src/app/shared/admin/accion-catalogo.component.ts",
+                      "lines":  34,
+                      "sha256":  "1489a1e2f6b2fca3c758ba728a37cc0b8dad8e65b8dc34864865a45af1421ea4"
+                  },
+                  {
+                      "file":  "src/app/shared/admin/catalogo-baja.component.spec.ts",
+                      "lines":  266,
+                      "sha256":  "ac39256d4988b87ae5087cce02c77ca9ea36e03c714b88b14a785742dc3febd4"
+                  },
+                  {
+                      "file":  "src/app/shared/admin/filtro-catalogo.component.ts",
+                      "lines":  70,
+                      "sha256":  "902dccf2229a4d439cd71e855d3b3dd0a9c3e46eeb88f15d3e3dd6266bfc00b4"
+                  },
+                  {
+                      "file":  "src/app/shared/cine/directivas.ts",
+                      "lines":  34,
+                      "sha256":  "39be36dd13c467626d9b6c40f44533150e513180c137b055bcdcb350a0a3fe7c"
+                  },
+                  {
+                      "file":  "src/app/shared/cine/estrellas.component.ts",
+                      "lines":  62,
+                      "sha256":  "bb4f3a3067d5636338e2fba0b57ffc2d6739664c71e2df529040612387e24aef"
+                  },
+                  {
+                      "file":  "src/app/shared/cine/fecha-argentina.spec.ts",
+                      "lines":  35,
+                      "sha256":  "ddd835c14a690cd20d989bb97fe1afb62d4cc4562f8647b76dbb36797aca74b9"
+                  },
+                  {
+                      "file":  "src/app/shared/cine/fecha-argentina.ts",
+                      "lines":  45,
+                      "sha256":  "3b573fc04c18f91694eb150df1c957162469c6b90c5e3e61885d1b384cc385d2"
+                  },
+                  {
+                      "file":  "src/app/shared/cine/imagen-cine.component.spec.ts",
+                      "lines":  41,
+                      "sha256":  "dfd370b0ea44913ccd33fdcad40a94ad980a8ce80a5027ad03ea097bf7689282"
+                  },
+                  {
+                      "file":  "src/app/shared/cine/imagen-cine.component.ts",
+                      "lines":  62,
+                      "sha256":  "566af992e506f427f8baaee8efdb75bf6d2adcda02e80da1f96bc3d3d274259a"
+                  },
+                  {
+                      "file":  "src/app/shared/cine/pipes.ts",
+                      "lines":  24,
+                      "sha256":  "e45c27068a7330558616f17010bed7d08c34435197f95d346b7b9ee1c644d238"
+                  },
+                  {
+                      "file":  "src/app/shared/cine/reglas.spec.ts",
+                      "lines":  49,
+                      "sha256":  "f79ce9090bb17fe05506a7f1b1f717f221887d662258d57c94fe4c8193ed8cf6"
+                  },
+                  {
+                      "file":  "src/app/shared/cine/reglas.ts",
+                      "lines":  67,
+                      "sha256":  "ada746e144296c3ffc29644513781e341aa366c94d440be1cef18eac891aa9e3"
+                  },
+                  {
+                      "file":  "src/app/shared/entradas/escaner.component.ts",
+                      "lines":  106,
+                      "sha256":  "d44c8d5ab3ac92a1738d90a59a3152179d1947fafb2a403c67c2df4d5ad49e16"
+                  },
+                  {
+                      "file":  "src/app/shared/entradas/pdf.service.ts",
+                      "lines":  56,
+                      "sha256":  "8d79b9590c438381082b410aad9a1ee0aa6b46c4f26c45828d7adc45c75a3dcd"
+                  },
+                  {
+                      "file":  "src/app/shared/entradas/qr-compra.component.ts",
+                      "lines":  52,
+                      "sha256":  "16c481d2bfee149c95c723b72be58b8e39be73c74dc7a10df1e2904c94e081c9"
+                  },
+                  {
+                      "file":  "src/app/shared/entradas/qr.component.ts",
+                      "lines":  37,
+                      "sha256":  "cf9963f1c27817441a4dd50b105095c7edd58d81b04bb80faef0b270c5cf485f"
+                  },
+                  {
+                      "file":  "src/app/shared/reportes/exportaciones.spec.ts",
+                      "lines":  73,
+                      "sha256":  "281760da807d946fedc22d03e72e20529dd7da961e49196230af86bd00ffa0a5"
+                  },
+                  {
+                      "file":  "src/app/shared/reportes/exportaciones.ts",
+                      "lines":  197,
+                      "sha256":  "b3cc6e21f9789e84ce7de373fd8742dd0c498d1a29918e4d50e4e51f2c0fd643"
+                  },
+                  {
+                      "file":  "src/environments/environment.production.ts",
+                      "lines":  7,
+                      "sha256":  null
+                  },
+                  {
+                      "file":  "src/environments/environment.ts",
+                      "lines":  7,
+                      "sha256":  null
+                  },
+                  {
+                      "file":  "src/index.html",
+                      "lines":  20,
+                      "sha256":  "dad48a898020a1130ba9095af114a033f3b335eb2dfd780fc03adacda1624d63"
+                  },
+                  {
+                      "file":  "src/main.ts",
+                      "lines":  10,
+                      "sha256":  "0696122b6e802cfed67c98c5026b40785c2375b69372f7714c0a62eeb47722aa"
+                  },
+                  {
+                      "file":  "src/styles/_admin.scss",
+                      "lines":  159,
+                      "sha256":  "ded71b9e0e0dd9c1656c6ff02ac0917a3200c908f2cbbf1b610b271f19d1df5a"
+                  },
+                  {
+                      "file":  "src/styles/_base.scss",
+                      "lines":  223,
+                      "sha256":  "3d9d758065c5a6643a2e17a6f0b3f184bdab80be5397dee08361388dec35caba"
+                  },
+                  {
+                      "file":  "src/styles/_tipografia.scss",
+                      "lines":  38,
+                      "sha256":  "79f4cbb21a82cfb261f20010694821682172de7a5a13c1244665d4ea7efc15c3"
+                  },
+                  {
+                      "file":  "src/styles/_variables.scss",
+                      "lines":  38,
+                      "sha256":  "f958805f6151ff0b2ae7473bbb08cc2e94f06f10235672cb4873385c5d67b02e"
+                  },
+                  {
+                      "file":  "src/styles.scss",
+                      "lines":  10,
+                      "sha256":  "41ea8fa635b11e59ab6a12b0907011e22759061e5be58064264f0b15565d5b54"
+                  }
+              ],
+    "directories":  [
+                        "src",
+                        "src/app",
+                        "src/app/core",
+                        "src/app/core/auth",
+                        "src/app/core/guards",
+                        "src/app/core/notificaciones",
+                        "src/app/core/routing",
+                        "src/app/core/supabase",
+                        "src/app/data-access",
+                        "src/app/data-access/cine",
+                        "src/app/data-access/notificaciones",
+                        "src/app/data-access/peliculas",
+                        "src/app/data-access/perfiles",
+                        "src/app/features",
+                        "src/app/features/admin",
+                        "src/app/features/admin/dashboard",
+                        "src/app/features/admin/salas",
+                        "src/app/features/admin/salas/editor-butacas",
+                        "src/app/features/auth",
+                        "src/app/features/auth/confirmacion-email",
+                        "src/app/features/auth/login",
+                        "src/app/features/auth/recuperar-password",
+                        "src/app/features/auth/registro",
+                        "src/app/features/auth/restablecer-password",
+                        "src/app/features/auth/ui",
+                        "src/app/features/cartelera",
+                        "src/app/features/cartelera/boton-alerta-estreno",
+                        "src/app/features/cartelera/inicio",
+                        "src/app/features/cartelera/inicio/ranking",
+                        "src/app/features/cine",
+                        "src/app/features/compra",
+                        "src/app/features/compra/services",
+                        "src/app/features/empleados",
+                        "src/app/features/errores",
+                        "src/app/features/errores/no-encontrado",
+                        "src/app/features/errores/sin-permiso",
+                        "src/app/features/perfil",
+                        "src/app/features/perfil/mi-perfil",
+                        "src/app/features/perfil/mis-notificaciones",
+                        "src/app/shared",
+                        "src/app/shared/admin",
+                        "src/app/shared/cine",
+                        "src/app/shared/entradas",
+                        "src/app/shared/reportes",
+                        "src/environments",
+                        "src/styles"
+                    ],
+    "coverage":  "Inventario técnico para comprobar integridad; no son fichas ni matrices en el documento.",
+    "fragments":  [
+                      {
+                          "id":  "pedido",
+                          "file":  "src/app/features/compra/checkout.component.ts",
+                          "first":  109,
+                          "count":  7,
+                          "code":  "  protected readonly pedido = computed\u003cPedidoCheckout\u003e(() =\u003e ({\n    funcion: this.id,\n    butacas: this.carrito.butacas(),\n    candy: this.carrito.candy(),\n    cupon: this.datos().cupon.trim(),\n    credito: this.datos().credito ?? 0,\n  }));"
+                      },
+                      {
+                          "id":  "numero",
+                          "file":  "src/app/data-access/cine/validacion.ts",
+                          "first":  17,
+                          "count":  7,
+                          "code":  "export function numero(r: Record\u003cstring, unknown\u003e, key: string): number {\n  const value = r[key];\n  const n =\n    typeof value === \u0027number\u0027 || (typeof value === \u0027string\u0027 \u0026\u0026 value.trim()) ? Number(value) : NaN;\n  if (!Number.isFinite(n)) throw new Error(\u0027Respuesta del servidor inválida.\u0027);\n  return n;\n}"
+                      },
+                      {
+                          "id":  "sesion",
+                          "file":  "src/app/core/auth/sesion.service.ts",
+                          "first":  16,
+                          "count":  5,
+                          "code":  "  readonly usuario = computed(() =\u003e this.sesion()?.user ?? null);\n  readonly activo = computed(() =\u003e this.perfil()?.activo === true);\n  readonly autenticado = computed(() =\u003e this.usuario() !== null \u0026\u0026 this.activo() \u0026\u0026\n    this.perfil()?.id === this.usuario()?.id);\n  readonly rol = computed(() =\u003e this.autenticado() ? this.perfil()?.rol ?? null : null);"
+                      },
+                      {
+                          "id":  "guard",
+                          "file":  "src/app/core/guards/rol.guard.ts",
+                          "first":  10,
+                          "count":  14,
+                          "code":  "export function rolGuard(...permitidos: Rol[]): CanActivateFn {\n  return async (_route, state) =\u003e {\n    const auth = inject(AuthService);\n    const sesion = inject(SesionService);\n    const router = inject(Router);\n    await auth.refrescarPerfil();\n    if (!sesion.autenticado()) {\n      return router.createUrlTree([\u0027/auth/login\u0027], { queryParams: { returnUrl: state.url } });\n    }\n    const rol = sesion.rol();\n    return (rol !== null \u0026\u0026 permitidos.includes(rol)) ||\n      router.createUrlTree([\u0027/errores/sin-permiso\u0027]);\n  };\n}"
+                      },
+                      {
+                          "id":  "contiguidad",
+                          "file":  "src/app/shared/cine/reglas.ts",
+                          "first":  53,
+                          "count":  11,
+                          "code":  "    const bs = values.map((codigo) =\u003e distribucion().find((b) =\u003e b.codigo === codigo));\n    if (bs.some((b) =\u003e !b) || new Set(values).size !== values.length) return { contiguas: true };\n    const validas = bs.filter((b): b is Butaca =\u003e b !== undefined);\n    return new Set(validas.map((b) =\u003e b.fila)).size === 1 \u0026\u0026\n      new Set(validas.map((b) =\u003e b.bloque)).size === 1 \u0026\u0026\n      Math.max(...validas.map((b) =\u003e b.columna)) -\n        Math.min(...validas.map((b) =\u003e b.columna)) +\n        1 ===\n        validas.length\n      ? null\n      : { contiguas: true };"
+                      },
+                      {
+                          "id":  "control",
+                          "file":  "src/app/features/cine/reserva.component.ts",
+                          "first":  170,
+                          "count":  5,
+                          "code":  "  protected readonly control = new FormControl\u003cstring[]\u003e([], {\n    nonNullable: true,\n    validators: [butacasContiguas(() =\u003e this.datos()?.butacas ?? [])],\n  });\n  protected readonly formulario = new FormGroup({ butacas: this.control });"
+                      },
+                      {
+                          "id":  "solicitud",
+                          "file":  "src/app/features/compra/checkout.component.ts",
+                          "first":  190,
+                          "count":  6,
+                          "code":  "    const p = this.pedido();\n    const firma = JSON.stringify({ ...p, ...d, credito: p.credito, total: c.total });\n    if (this.ultimoPedido !== firma) {\n      this.ultimoPedido = firma;\n      this.solicitud = crypto.randomUUID();\n    }"
+                      },
+                      {
+                          "id":  "commit",
+                          "file":  "supabase/functions/confirmar-compra/handler.ts",
+                          "first":  262,
+                          "count":  11,
+                          "code":  "    const codigo = crypto.randomUUID();\n    // QR y PDF se renderizan ANTES de escribir. Si fallan, no se crea ninguna compra.\n    const pdf = await documento(quote as Cotizacion, codigo);\n    const { data: token, error } = await backend.rpc(\u0027cine_comprar_documento\u0027, {\n      p_usuario: usuario,\n      p_datos: { ...datos, cotizacion: quote },\n      p_qr: codigo,\n      p_pdf: pdf,\n    });\n    if (error) return reply(409, { error: error.message });\n    return reply(200, { token });"
+                      }
+                  ],
+    "chapters":  [
+                     "1. Qué construí y qué debo poder explicar",
+                     "2. Arquitectura: dónde empieza y cómo llega a los datos",
+                     "3. Estado, formularios y sintaxis que uso de verdad",
+                     "4. Sesión y permisos: quién sos y qué podés hacer",
+                     "5. Flujo central: de elegir butacas a confirmar la compra",
+                     "6. Reglas posteriores y administración que debo defender",
+                     "7. Robustez, pruebas y límites reales",
+                     "8. Preparación concreta para la defensa"
+                 ],
+    "maxLines":  1999,
+    "markdownLines":  435,
+    "tests":  {
+                  "files":  45,
+                  "passed":  390
+              },
+    "testsRevision":  "2026-10-12",
+    "words":  5113,
+    "docxBytes":  39377,
+    "renderWord":  {
+                       "abierto":  true,
+                       "fecha":  "2026-10-12",
+                       "lineas":  480,
+                       "paginas":  12,
+                       "exportacionPdfTemporal":  true,
+                       "palabrasWord":  5144
+                   }
+}
