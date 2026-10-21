@@ -1,3 +1,8 @@
+/**
+ * WebPushService comprueba compatibilidad, permiso y Service Worker, y registra el dispositivo en Supabase usando la clave VAPID pública.
+ * actualizar() consulta sin pedir permiso; activar() solicita consentimiento y registra la suscripción; desactivar() intenta darla de baja.
+ * revision descarta respuestas de otra sesión y antesDeSalir() limita la baja a cinco segundos; el envío real lo hace el backend, no este servicio.
+ */
 import { DOCUMENT, inject, InjectionToken, Service, computed, signal } from '@angular/core';
 import { SesionService } from '../auth/sesion.service';
 import { SupabaseService } from '../supabase/supabase.service';

@@ -1,5 +1,7 @@
 /**
- * Anotacion de responsabilidad: Archivo de soporte del sistema de Ruta Identidad.Strategy; concentra la responsabilidad de este modulo dentro de app/core/routing. Incluye principalmente: RutaIdentidadStrategy, claves.
+ * Extiende BaseRouteReuseStrategy y sobrescribe shouldReuseRoute para decidir si Angular conserva la instancia del componente.
+Exige la misma configuración de ruta, igual cantidad de parámetros y valores coincidentes mediante every.
+Si cambia el ID de película, función o compra, crea otra instancia para evitar datos anteriores; cambiar sólo query params permite reutilizarla.
  */
 import { Service } from '@angular/core';
 import { ActivatedRouteSnapshot, BaseRouteReuseStrategy } from '@angular/router';

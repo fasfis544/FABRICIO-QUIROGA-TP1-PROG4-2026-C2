@@ -1,26 +1,397 @@
-## Cine Aurora — Sistema de cine
-![Uploading Captura de pantalla 2026-10-07 182625.png…]()
+# Cine Aurora | Plataforma de cine full stack
 
+**De elegir una película a validar el ingreso a la sala: una experiencia conectada
+para espectadores, empleados y administradores.**
 
-Aplicación web progresiva para administrar un cine de varias salas y permitir la
-compra **simulada** de entradas y productos de candy. El proyecto está pensado
-para una entrega académica: no procesa dinero real, no reemplaza un sistema
-contable y no incluye aplicaciones nativas.
+Aplicación web responsive y progresiva que reúne venta de entradas, selección de
+butacas, productos de candy y gestión de un cine de varias salas. Un proyecto de
+portafolio de origen académico que conecta interfaz, autenticación, reglas de
+negocio en PostgreSQL y despliegue web.
 
-**Demo publicada:** <https://cine-aurora.vercel.app>
+**[Explorar la demo →](https://cine-aurora.vercel.app)** ·
+[Ver funcionalidades](#funcionalidades) ·
+[Ver la experiencia del cliente](#experiencia-del-cliente) ·
+[Ver el backoffice](#backoffice-administración-de-punta-a-punta) ·
+[Ver capturas](#capturas-de-pantalla) ·
+[Revisar arquitectura](#arquitectura) ·
+[Ejecutar localmente](#instalación-local)
 
-## 1. ¿Qué resuelve?
+`Angular 22` · `TypeScript` · `Supabase` · `PostgreSQL` · `PWA` · `Vitest`
 
-El sistema reúne en una misma aplicación:
+> **Pago simulado:** no se cobra dinero real ni se integra una pasarela de pago.
+> La demo es un entorno de presentación, no un servicio comercial.
 
-- Cartelera, próximos estrenos, búsqueda, filtros, géneros y ranking de ventas.
-- Compra como invitado o cliente registrado, con selección de 1 a 8 butacas.
-- Candy, combos, cupones, crédito, puntos y recompensas.
-- Comprobante digital PDF, QR y consulta segura de la compra.
-- Historial, películas vistas, reseñas, alertas y notificaciones Web Push.
-- Operación de empleado: validar entrada o retirar candy desde el mismo QR.
-- Backoffice de administrador: películas, géneros, salas, butacas, funciones,
-  programación por rango, precios, ofertas, usuarios, reportes y auditoría.
+![Catálogo completo de Cine Aurora: búsqueda, filtros, películas y pie de página](docs/capturas/peliculas.png)
+
+## El proyecto en un minuto
+
+- **Para el espectador:** descubrir películas, elegir función y butacas, sumar
+  candy y obtener un comprobante digital con QR.
+- **Para el cine:** organizar salas y horarios, gestionar promociones, validar
+  prestaciones y consultar ventas desde un backoffice por roles.
+- **Más allá de un CRUD:** disponibilidad en vivo, reservas temporales,
+  validación de descuentos en servidor, idempotencia y operaciones atómicas.
+- **En el código:** frontend organizado por funcionalidades, backend SQL con
+  RPC/RLS, Edge Functions y pruebas de interfaz y reglas de negocio.
+
+## Experiencia del cliente
+
+**Descubrir, elegir y volver.** El recorrido conecta la cartelera con la compra
+y una cuenta donde consultar actividad y beneficios. La misma aplicación se
+adapta a escritorio y móvil.
+
+Todas las imágenes de esta presentación son **capturas de página completa**:
+incluyen la cabecera, el contenido y el pie, sin recortar formularios ni listados.
+Se pueden abrir en tamaño original haciendo clic en ellas. Los estados vacíos
+son los reales de la cuenta utilizada, no datos inventados para la presentación.
+
+<details>
+<summary><strong>01 · Descubrimiento — inicio, catálogo, estrenos y ficha de película</strong></summary>
+
+### Inicio
+
+Ranking de ventas, selección de películas y accesos a funciones y al club de beneficios.
+
+![Página de inicio completa de Cine Aurora](docs/capturas/inicio.png)
+
+### Películas
+
+Búsqueda por título o género, clasificación, idioma y formato. Idioma y formato
+deben coincidir en una misma función disponible.
+
+![Catálogo completo con buscador, filtros y todas las tarjetas de películas](docs/capturas/peliculas.png)
+
+### Próximos estrenos
+
+Separación automática entre cartelera y próximos estrenos según la fecha civil argentina.
+
+![Página completa de próximos estrenos](docs/capturas/proximamente.png)
+
+### Detalle de película
+
+Sinopsis, clasificación, duración, funciones disponibles y reseñas en una misma ficha.
+
+![Ficha completa de película con disponibilidad y reseñas](docs/capturas/detalle-pelicula.png)
+
+</details>
+
+<details>
+<summary><strong>02 · Cuenta — perfil, compras y películas vistas</strong></summary>
+
+### Acceso y registro
+
+Inicio de sesión y alta de cuenta para acceder al historial y a los beneficios.
+La recuperación de contraseña forma parte del mismo módulo de autenticación.
+
+![Página completa de inicio de sesión](docs/capturas/cliente-login.png)
+
+### Mi perfil
+
+Datos de la cuenta, preferencias y accesos al historial y a los beneficios.
+Los valores personales del formulario están ocultos únicamente en la captura.
+
+![Página completa del perfil con valores personales ocultos por privacidad](docs/capturas/cliente-perfil.png)
+
+### Mis compras
+
+Historial personal y acceso al detalle de cada compra. Desde una compra elegible
+se puede consultar su comprobante y realizar las acciones permitidas por las reglas.
+
+![Página completa del historial de compras de la cuenta de demostración](docs/capturas/cliente-compras.png)
+
+### Películas vistas
+
+El historial de asistencia distingue una compra de una entrada utilizada. Las
+reseñas se habilitan a partir de una compra confirmada con ingreso registrado.
+
+![Página completa de películas vistas de la cuenta de demostración](docs/capturas/cliente-peliculas.png)
+
+</details>
+
+<details>
+<summary><strong>03 · Fidelización — puntos, recompensas, canjes y crédito</strong></summary>
+
+### Puntos
+
+Consulta del saldo y movimientos del programa de fidelización.
+
+![Página completa de puntos y movimientos](docs/capturas/cliente-puntos.png)
+
+### Recompensas
+
+Catálogo de beneficios canjeables por puntos, con sus condiciones y costo de canje.
+
+![Página completa del catálogo de recompensas del cliente](docs/capturas/cliente-recompensas.png)
+
+### Mis canjes
+
+Consulta de los beneficios obtenidos y de su estado.
+
+![Página completa del historial de canjes](docs/capturas/cliente-canjes.png)
+
+### Crédito
+
+Consulta del crédito disponible y su historial de movimientos; el servidor
+valida el saldo al aplicarlo en una compra.
+
+![Página completa del crédito y sus movimientos](docs/capturas/cliente-credito.png)
+
+</details>
+
+<details>
+<summary><strong>04 · Notificaciones y experiencia móvil</strong></summary>
+
+### Notificaciones
+
+Centro de avisos y preferencias de notificaciones. La recepción Web Push real
+en un dispositivo continúa siendo una verificación pendiente.
+
+![Página completa del centro de notificaciones y preferencias](docs/capturas/cliente-notificaciones.png)
+
+### Móvil
+
+Navegación, filtros y tarjetas reorganizados para una pantalla pequeña. La
+imagen incluye **todo el catálogo móvil**, no solo la primera pantalla visible.
+
+<img src="docs/capturas/peliculas-movil.png" alt="Página completa del catálogo en móvil, desde la cabecera hasta el pie" width="320">
+
+</details>
+
+**Compra guiada:** película y función → butacas → candy → checkout → comprobante
+PDF/QR. La compra requiere funciones futuras disponibles. Como no las había al
+tomar las capturas, esta galería no incluye butacas de compra, checkout ni un
+comprobante nuevo. El recorrido y sus validaciones se describen en
+[Flujo principal](#flujo-principal).
+
+## Backoffice: administración de punta a punta
+
+**Aurora Studio es el centro de operación del cine**, no solo un formulario para
+cargar películas. La vista general reúne indicadores de los últimos siete días,
+búsqueda de herramientas y accesos a seis áreas de gestión.
+
+![Panel de administración de Aurora Studio con indicadores de compras, neto simulado, salas activas y funciones futuras](docs/capturas/admin-panel.png)
+
+| Área | Herramientas disponibles |
+| --- | --- |
+| **Catálogo** | Películas, afiches, clasificación, preventa, géneros, búsqueda y gestión de registros activos e históricos. |
+| **Salas y programación** | Salas, mantenimiento de butacas, funciones, programación por días y rango, precios, recargo VIP, idioma y formato. |
+| **Candy** | Productos, categorías, precios, stock y combos con componentes y entrada opcional. |
+| **Promociones** | Cupones, porcentaje de bienvenida y recompensas canjeables por puntos. |
+| **Operación y accesos** | Validación de entrada o candy, administración de usuarios y roles, y consulta de auditoría. |
+| **Reportes** | Ventas, películas y candy por período, indicadores, rankings, gráficos y exportación a Excel/PDF. |
+
+### Recorrido visual del administrador
+
+**Desplegá cada área para ver sus pantallas y responsabilidades.** Las capturas
+del backoffice y de la cuenta se tomaron en la aplicación local, con una sesión
+autorizada, el **21 de octubre de 2026**. No son maquetas. Los datos personales
+y códigos privados se ocultan sobre las imágenes antes de publicarlas; no se
+publican contraseñas ni tokens. Los importes son de compras simuladas.
+
+<details>
+<summary><strong>01 · Catálogo — películas y géneros</strong></summary>
+
+#### Películas
+
+Alta y edición de fichas, afiches, duración, clasificación y preventa. El listado
+incluye búsqueda y filtro de registros; la baja lógica conserva la historia en
+lugar de borrar las compras asociadas.
+
+![Administración de películas con buscador, filtro de registros y acciones de edición y baja](docs/capturas/admin-peliculas.png)
+
+#### Géneros
+
+Organización del catálogo mediante nombre, slug y estado, con búsqueda y gestión
+de registros. Estos géneros se utilizan en el descubrimiento público de películas.
+
+![Gestión de géneros con formulario de nombre, slug y estado](docs/capturas/admin-generos.png)
+
+</details>
+
+<details>
+<summary><strong>02 · Salas y programación — espacios, butacas, funciones y precios</strong></summary>
+
+#### Salas
+
+Configuración de los espacios del cine, nombres y distribución. El plano
+documentado distingue butacas normales, accesibles y VIP; las salas con historia
+se desactivan para conservar sus registros.
+
+![Pantalla de salas con configuración de nombre, filas y butacas por fila](docs/capturas/admin-salas.png)
+
+#### Mantenimiento de butacas
+
+Consulta del plano por sala y bloqueo/restauración de asientos con motivo
+obligatorio. El mantenimiento afecta las funciones de esa sala, queda auditado
+y no permite bloquear butacas protegidas por compras o reservas vigentes.
+La captura incluye la página completa del editor. El plano conserva el
+desplazamiento horizontal propio de la interfaz; no se modificó ningún asiento.
+
+![Plano de mantenimiento con filas de butacas y estados de habilitación](docs/capturas/admin-butacas.png)
+
+#### Funciones
+
+Creación y gestión de horarios. La sala disponible se asigna automáticamente
+respetando duración y limpieza entre funciones; el servidor controla los
+solapamientos. También se contemplan reprogramación y cancelación según sus reglas.
+
+![Administración de funciones con selección de película, horario y precio](docs/capturas/admin-funciones.png)
+
+#### Programación por días y rango
+
+Programación repetida dentro de un intervalo: película, fecha inicial/final,
+hora argentina y días de la semana. Evita cargar cada función manualmente.
+
+![Formulario de programación por rango de fechas, hora y días de la semana](docs/capturas/admin-programacion.png)
+
+#### Precios y formatos
+
+Consulta y edición de tarifa, recargo VIP, idioma y formato. Los filtros por sala
+y estado operativo distinguen funciones futuras de registros históricos.
+
+![Gestión de precios y formatos con filtros y tarjetas de funciones históricas](docs/capturas/admin-precios.png)
+
+</details>
+
+<details>
+<summary><strong>03 · Candy — productos, stock y combos</strong></summary>
+
+#### Productos
+
+Gestión de categorías, precios, imágenes y stock. El inventario se vuelve a
+validar en servidor durante la compra, no solo al agregar un producto al carrito.
+
+![Listado administrativo de productos candy con búsqueda y filtro de estado](docs/capturas/admin-productos.png)
+
+#### Combos
+
+Composición de paquetes de productos con precio propio y entrada opcional.
+Permite administrar la oferta conjunta sin perder el control de sus componentes.
+
+![Administración de combos con listado y herramientas de configuración](docs/capturas/admin-combos.png)
+
+</details>
+
+<details>
+<summary><strong>04 · Promociones — cupones, bienvenida y recompensas</strong></summary>
+
+#### Cupones y bienvenida
+
+Configuración de descuentos, vigencia y segmentación: primera compra, usuario,
+película, importe mínimo o edad mínima, según el cupón. El porcentaje de
+bienvenida se configura desde esta pantalla; PostgreSQL genera el cupón al
+crear el perfil y verifica sus condiciones en el checkout.
+
+![Panel de cupones y bienvenida con porcentaje para nuevos clientes y filtros del listado](docs/capturas/admin-cupones.png)
+
+#### Recompensas
+
+Definición de entradas o productos que se canjean por puntos, con estado y costo
+de canje. Conecta la administración de promociones con la fidelización del cliente.
+
+![Gestión de recompensas con listado y acciones sobre canjes por puntos](docs/capturas/admin-recompensas.png)
+
+</details>
+
+<details>
+<summary><strong>05 · Operación y accesos — QR, usuarios, roles y auditoría</strong></summary>
+
+#### Validación de compras
+
+Selección de función y prestación: ingreso a sala o retiro de candy. Permite
+escanear el QR o ingresar el código. No realiza un nuevo cobro: registra el uso
+de una compra confirmada y controla el consumo de cada prestación.
+
+![Pantalla de validación con escáner QR, función, prestación y código de compra](docs/capturas/admin-validacion.png)
+
+#### Usuarios y roles
+
+Búsqueda de cuentas existentes y gestión de rol/estado con confirmación
+explícita. No solicita contraseñas, no elimina cuentas y protege al administrador
+contra la pérdida de su propio acceso. **Los datos personales se ocultaron en
+la imagen, no se alteraron en la aplicación.**
+
+![Gestión de usuarios con roles de cliente, administrador y empleado; nombres y correos ocultos por privacidad](docs/capturas/admin-usuarios.png)
+
+#### Auditoría
+
+Consulta paginada de operaciones del backend por intervalo: qué cambió, quién
+lo hizo y cuándo. El visor no expone correos, tokens ni comprobantes PDF.
+
+![Consulta de auditoría por fechas con navegación paginada](docs/capturas/admin-auditoria.png)
+
+</details>
+
+<details>
+<summary><strong>06 · Reportes — ventas, películas y candy con resultados</strong></summary>
+
+Los tres reportes permiten seleccionar un período en hora argentina, consultar
+resultados y exportarlos a Excel o PDF. Las capturas muestran una consulta de
+**octubre de 2026**, con datos de prueba ya existentes; no se crearon compras
+para preparar esta galería. Los totales no representan facturación real.
+
+#### Ventas
+
+Compras confirmadas no canceladas, entradas, total de ventas, crédito aplicado
+y monto de pago simulado. Incluye gráfico de entradas por día y detalle tabular.
+
+![Reporte de ventas con seis compras de prueba, indicadores, exportaciones y gráfico de entradas por día](docs/capturas/admin-reporte-ventas.png)
+
+#### Películas
+
+Resultados por película y ranking de ingresos a sala validados. Distingue
+entradas compradas de asistencias efectivamente registradas.
+
+![Reporte de películas con indicadores y ranking de ingresos validados](docs/capturas/admin-reporte-peliculas.png)
+
+#### Candy
+
+Unidades vendidas, incluidos componentes de combos, ranking de productos,
+gráfico y tabla de detalle.
+
+![Reporte de candy con indicadores, ranking de productos, gráfico y exportaciones](docs/capturas/admin-reporte-candy.png)
+
+</details>
+
+## Recorrer la demo sin instalar nada
+
+1. Abrí [Cine Aurora](https://cine-aurora.vercel.app) y explorá el ranking de ventas.
+2. Entrá a [Películas](https://cine-aurora.vercel.app/peliculas): buscá por título
+   o género y probá los filtros de clasificación, idioma y formato.
+3. Abrí una película para consultar sinopsis, clasificación, funciones y reseñas.
+4. Probá la misma experiencia desde el teléfono para ver la adaptación responsive.
+
+La cartelera se puede consultar sin cuenta. El perfil requiere registro; las
+pantallas de empleados y administración requieren un rol autorizado y no se
+publican credenciales privilegiadas. La disponibilidad de compra depende de que
+haya funciones futuras programadas: al tomar estas capturas, las películas
+revisadas no tenían funciones futuras disponibles.
+
+## Capturas de pantalla
+
+La galería está organizada arriba en [experiencia del cliente](#experiencia-del-cliente)
+y [backoffice](#backoffice-administración-de-punta-a-punta). Los archivos de
+[`docs/capturas/`](docs/capturas/) son páginas completas, no recortes del área
+visible. Las vistas públicas corresponden a la demo sin sesión; las protegidas,
+a la aplicación local con acceso autorizado. Capturas del **21 de octubre de 2026**.
+
+## Funcionalidades
+
+| Módulo | Qué permite hacer | Valor para el usuario o la operación |
+| --- | --- | --- |
+| Cartelera y descubrimiento | Buscar películas, filtrar, consultar estrenos y ranking de ventas. | Encontrar una película y conocer su disponibilidad. |
+| Butacas y compra | Elegir entre 1 y 8 butacas contiguas; comprar como invitado o usuario registrado. | Recorrer una compra guiada con disponibilidad validada en servidor. |
+| Candy y promociones | Agregar productos y combos; aplicar cupones, crédito y beneficios. | Resolver entradas y consumos en un mismo pedido. |
+| Comprobante digital | Consultar la compra y obtener PDF y QR. | Tener un comprobante para el ingreso y el retiro de candy. |
+| Cuenta y fidelización | Ver compras, películas vistas, puntos, recompensas y escribir reseñas. | Conservar el historial y acceder a beneficios personales. |
+| Operación de empleados | Validar entradas y retiro de candy mediante QR, según la función. | Registrar cada prestación y evitar reutilizarla. |
+| Administración | Gestionar películas, géneros, salas, mantenimiento de butacas, funciones, precios, ofertas y usuarios. | Centralizar la programación y la operación del cine. |
+| Reportes y auditoría | Consultar ventas de entradas, películas y candy, exportaciones y acciones registradas. | Analizar resultados y mantener trazabilidad. |
+
+Las capturas muestran tanto la experiencia pública como el backoffice local
+autenticado. Son evidencia visual de las pantallas, no una certificación de
+todos los flujos en producción. OAuth y recepción Web Push tienen validaciones
+pendientes detalladas en [Estado conocido](#estado-conocido).
 
 ### Actores
 
@@ -31,7 +402,7 @@ El sistema reúne en una misma aplicación:
 | Empleado | Validar una entrada o la prestación de candy de una función seleccionada. |
 | Administrador | Gestionar catálogo y operación, usuarios, reportes y auditoría. |
 
-## 2. Flujo principal
+## Flujo principal
 
 1. El visitante consulta una película y una función.
 2. Selecciona butacas disponibles y, opcionalmente, productos o combos.
@@ -48,7 +419,20 @@ El carrito del navegador es solo una ayuda visual: no reserva butacas. La
 autoridad final siempre es la base de datos, que usa locks, restricciones e
 idempotencia para evitar sobreventa y compras duplicadas.
 
-## 3. Arquitectura
+## Arquitectura
+
+### Decisiones técnicas que demuestra el proyecto
+
+| Desafío | Solución implementada | Dónde revisar |
+| --- | --- | --- |
+| Mantener las butacas actualizadas | Realtime como aviso para volver a consultar; respaldo cada 15 segundos y recarga al reconectar. La selección local se filtra contra la respuesta del servidor. | [`reserva.component.ts`](src/app/features/cine/reserva.component.ts) |
+| Evitar que el navegador decida precios o permisos | Cálculo de totales y condiciones de cupones en RPC; autenticación, RLS y validación de rol en backend. Los guards solo controlan la navegación. | [`supabase/migrations/`](supabase/migrations/) |
+| Coordinar la confirmación de una compra | Edge Function y operación SQL atómica, con locks e idempotencia para manejar reintentos. | [`confirmar-compra/`](supabase/functions/confirmar-compra/) |
+| Evitar reseñas duplicadas desde compras distintas | Clave primaria por usuario y película, con actualización mediante `ON CONFLICT`; se exige una entrada utilizada. | [`Migración de reseña única`](supabase/migrations/20261016000300_resena_unica_pelicula.sql) |
+| Incorporar caché sin almacenar información sensible | Service Worker limitado a cartelera pública; sesión, compras, QR y datos personales quedan fuera de la caché. | [`Documentación de arquitectura`](docs/arquitectura.md) |
+| Probar reglas además de componentes | Vitest/jsdom para cliente y verificadores SQL con PGlite, sin modificar la base remota. | [`tools/`](tools/) |
+
+### Organización
 
 ```text
 Angular SPA/PWA
@@ -71,14 +455,14 @@ PGlite. La aplicación usa componentes standalone, lazy loading, signals,
 Reactive Forms y Service Worker. En producción el worker cachea únicamente la
 cartelera pública; nunca cachea sesión, compras, QR ni datos personales.
 
-## 4. Navegación
+## Navegación
 
 - Público: `/`, `/peliculas`, `/proximamente`, `/peliculas/:id`.
 - Compra: `/compra/:funcionId/butacas`, `/compra/:funcionId/candy`,
   `/compra/:funcionId/checkout` y `/compra/confirmacion/:compraId`.
 - Cuenta: `/perfil`, `/perfil/compras`, `/perfil/peliculas`,
-  `/perfil/puntos`, `/recompensas`, `/canjes`, `/credito` y
-  `/notificaciones`.
+  `/perfil/puntos`, `/perfil/recompensas`, `/perfil/canjes`, `/perfil/credito` y
+  `/perfil/notificaciones`.
 - Auth: `/auth/login`, `/registro`, `/recuperar-password`,
   `/restablecer-password`, `/confirmacion-email` y `/oauth`.
 - Administración: `/admin/**`, con catálogo, programación, candy,
@@ -90,7 +474,7 @@ Los guards mejoran la navegación, pero la autorización se verifica nuevamente
 en Supabase mediante el rol activo de `perfiles`, nunca mediante metadata del
 navegador.
 
-## 5. Reglas de negocio importantes
+## Reglas de negocio importantes
 
 - Las películas activas se separan automáticamente entre cartelera y
   próximamente usando la fecha civil argentina.
@@ -107,7 +491,7 @@ navegador.
 - Una cuenta puede mantener una reseña vigente por película; el historial de
   reseñas se conserva.
 
-## 6. Instalación local
+## Instalación local
 
 Requisitos: Node compatible con Angular 22.2, npm y un proyecto Supabase
 configurado. El repositorio incluye `package-lock.json`, por lo que se instala
@@ -138,7 +522,7 @@ Antes de modificarlo hay que inspeccionar el esquema, respaldar y aplicar solo
 un bloque autorizado. El detalle de compatibilidad y despliegue está en
 [`docs/arquitectura.md`](docs/arquitectura.md).
 
-## 7. Pruebas y comandos útiles
+## Pruebas y comandos útiles
 
 ```powershell
 npm test -- --watch=false
@@ -162,8 +546,23 @@ de concurrencia real, recepción Push en un dispositivo ni una auditoría del
 proyecto Supabase remoto. Las Edge Functions se pueden comprobar con
 `deno check` y `deno test` en `supabase/functions/`.
 
+## Estado conocido
 
-## 8. Documentación complementaria
+Los flujos centrales, el backoffice y las pruebas locales están implementados.
+La demo está publicada y `confirmar-compra` está desplegada. Estas son las
+limitaciones y verificaciones pendientes:
+
+- OAuth Google/GitHub tiene código y rutas, pero requiere credenciales y
+  configuración del proveedor en Supabase.
+- Web Push tiene migración, Edge, Cron y worker; falta comprobar consentimiento
+  y recepción real en un dispositivo.
+- La baja lógica del catálogo requiere revisar una discrepancia del esquema
+  remoto antes de usarla en producción.
+- Las pruebas locales no representan varias conexiones concurrentes reales.
+- Las plantillas de correo de Auth y algunos procedimientos operativos requieren
+  configuración manual.
+
+## Documentación complementaria
 
 - [`docs/arquitectura.md`](docs/arquitectura.md): capas, contratos, datos,
   seguridad, PWA, migraciones, despliegue y pruebas.

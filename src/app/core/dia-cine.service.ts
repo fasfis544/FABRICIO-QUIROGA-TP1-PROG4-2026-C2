@@ -1,5 +1,7 @@
 /**
- * Anotacion de responsabilidad: Servicio Angular de Dia Cine; concentra la responsabilidad de este modulo dentro de app/core. Incluye principalmente: DiaCineService, actualizar, visible, timer.
+ * Guarda la fecha argentina en una signal y la expone como hoy mediante asReadonly(), sin permitir modificarla desde otros componentes.
+setInterval(..., 60000) la actualiza cada minuto si la pestaña está visible; también al recuperar foco o cambiar visibilidad.
+DestroyRef.onDestroy() elimina el temporizador y los listeners; así las pantallas pueden actualizar estrenos al cambiar el día sin dejar recursos activos.
  */
 import { DestroyRef, DOCUMENT, inject, Service, signal } from '@angular/core';
 import { fechaArgentina } from '../shared/cine/fecha-argentina';

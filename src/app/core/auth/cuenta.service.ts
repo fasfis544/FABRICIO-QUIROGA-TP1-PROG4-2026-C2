@@ -1,5 +1,5 @@
 /**
- * Anotacion de responsabilidad: Servicio Angular de Cuenta; concentra la responsabilidad de este modulo dentro de app/core/auth. Incluye principalmente: DatosRegistro, CuentaService, ruta, query.
+ * AuthService sincroniza sesión y perfil; CuentaService coordina los procedimientos para crear o recuperar la cuenta.
  */
 import { DOCUMENT, inject, Service, signal } from '@angular/core';
 import { Router } from '@angular/router';
