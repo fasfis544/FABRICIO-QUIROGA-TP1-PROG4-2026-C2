@@ -2,6 +2,7 @@
 
 **De elegir una película a validar el ingreso a la sala: una experiencia conectada
 para espectadores, empleados y administradores.**
+<img width="1440" height="2578" alt="image" src="https://github.com/user-attachments/assets/83660cb7-21e5-49b0-9ec0-a6b960f47e73" />
 
 Aplicación web responsive y progresiva que reúne venta de entradas, selección de
 butacas, productos de candy y gestión de un cine de varias salas. Un proyecto de
